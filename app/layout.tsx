@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-  title: 'PharmaOS | ERP Farmacéutico Inteligente',
+  title: 'NEXUS INFINITY | ERP',
   description: 'Sistema de gestión integral con IA predictiva'
 }
 

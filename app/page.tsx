@@ -1649,10 +1649,10 @@ export default function PharmaERP() {
         <div className='max-w-5xl mx-auto flex justify-between items-center'>
           <div className='flex items-center gap-2'>
             <div className='w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center text-white font-black italic shadow-indigo-200 shadow-lg'>
-              P
+              NI
             </div>
             <span className='text-xl font-black tracking-tighter'>
-              PharmaOS
+              NEXUS INFINITY
             </span>
           </div>
 
