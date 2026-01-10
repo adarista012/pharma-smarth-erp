@@ -2,7 +2,7 @@
 import React, { useState } from 'react'
 
 export default function PharmaERP() {
-  const [tab, setTab] = useState('produccion')
+  const [tab, setTab] = useState('dashboard')
 
   // --- COMPONENTE: PREDICCIONES IA ---
   const Predictivo = () => (
@@ -1463,37 +1463,188 @@ export default function PharmaERP() {
       </div>
     </div>
   )
-  // --- COMPONENTE: IA INSIGHTS ---
-  const IAInsights = () => (
-    <div className='animate-in fade-in duration-500 space-y-6'>
-      <div className='bg-indigo-600 p-8 rounded-[2.5rem] text-white overflow-hidden relative shadow-xl shadow-indigo-100'>
-        <div className='relative z-10'>
-          <h2 className='text-2xl font-black mb-2 tracking-tight uppercase'>
-            Analista Inteligente
-          </h2>
-          <p className='text-indigo-100 font-medium text-sm leading-relaxed'>
-            Optimizando inventario en tiempo real. Se detectaron 2 medicamentos
-            con baja rotación que podrían vencer pronto.
-          </p>
+
+  const SeccionValidacionFDA = () => (
+    <div className='animate-in fade-in zoom-in duration-500 space-y-8 pb-20'>
+      {/* Encabezado Protocolo Oficial */}
+      <div className='bg-white border-4 border-slate-900 p-8 rounded-sm shadow-xl max-w-5xl mx-auto'>
+        <div className='flex justify-between items-start border-b-4 border-slate-900 pb-6 mb-6'>
+          <div className='space-y-1'>
+            <h2 className='text-2xl font-black uppercase tracking-tighter'>
+              Protocolo de Calificación de Instalación (IQ)
+            </h2>
+            <p className='text-xs font-bold text-slate-500'>
+              Sistema: PHARMA-OS ERP | Versión: 1.0.4 | Código: VAL-IQ-2026-001
+            </p>
+          </div>
+          <div className='text-right'>
+            <span className='bg-slate-900 text-white px-4 py-2 text-xs font-black'>
+              CONFIDENCIAL - GMP
+            </span>
+          </div>
         </div>
-        <span className='absolute -right-4 -bottom-4 text-9xl opacity-20'>
-          🤖
-        </span>
+
+        {/* 1. INFORMACIÓN GENERAL (TABLA TIPO FORMULARIO) */}
+        <div className='grid grid-cols-2 gap-0 border border-slate-300 mb-8'>
+          <div className='p-3 border-b border-r border-slate-300 bg-slate-50 text-[10px] font-black uppercase'>
+            Propósito del Sistema
+          </div>
+          <div className='p-3 border-b border-slate-300 text-[10px] font-bold'>
+            Gestión Integral de Calidad y Producción Farmacéutica
+          </div>
+          <div className='p-3 border-r border-slate-300 bg-slate-50 text-[10px] font-black uppercase'>
+            Referencia Normativa
+          </div>
+          <div className='p-3 text-[10px] font-bold italic text-indigo-600 underline'>
+            21 CFR Part 11, GAMP 5, Anexo 11 EU GMP
+          </div>
+        </div>
+
+        {/* FORMULARIO IQ-001: VERIFICACIÓN DE DOCUMENTACIÓN */}
+        <div className='space-y-4'>
+          <div className='bg-slate-100 p-2 border border-slate-300 flex justify-between items-center'>
+            <h4 className='text-[11px] font-black uppercase'>
+              Formulario IQ-001: Verificación de Documentación
+            </h4>
+            <span className='text-[9px] font-bold italic text-slate-500 font-mono'>
+              REF: §11.10(a)
+            </span>
+          </div>
+
+          <table className='w-full border-collapse border border-slate-300 text-[10px]'>
+            <thead className='bg-slate-50'>
+              <tr className='font-black uppercase'>
+                <th className='border border-slate-300 p-2 text-left w-10'>
+                  N°
+                </th>
+                <th className='border border-slate-300 p-2 text-left'>
+                  Documento
+                </th>
+                <th className='border border-slate-300 p-2 text-center w-24'>
+                  Disponible
+                </th>
+                <th className='border border-slate-300 p-2 text-center w-20'>
+                  Versión
+                </th>
+                <th className='border border-slate-300 p-2 text-center w-24'>
+                  Conforme
+                </th>
+              </tr>
+            </thead>
+            <tbody className='font-bold'>
+              {[
+                { id: '01', doc: 'Manual de Instalación y Configuración' },
+                {
+                  id: '02',
+                  doc: 'Licencias de Software y Certificados de Propiedad'
+                },
+                { id: '03', doc: 'Certificados SSL/TLS (Cifrado de Datos)' },
+                { id: '04', doc: 'Matriz de Trazabilidad URS vs FS' },
+                {
+                  id: '05',
+                  doc: 'Procedimientos Operativos (SOPs) del Sistema'
+                }
+              ].map((row, i) => (
+                <tr key={i} className='hover:bg-indigo-50/30 transition-colors'>
+                  <td className='border border-slate-300 p-2 text-center'>
+                    {row.id}
+                  </td>
+                  <td className='border border-slate-300 p-2'>{row.doc}</td>
+                  <td className='border border-slate-300 p-2 text-center'>
+                    <input
+                      type='checkbox'
+                      defaultChecked
+                      className='accent-indigo-600'
+                    />
+                  </td>
+                  <td className='border border-slate-300 p-2 text-center font-mono'>
+                    v1.0
+                  </td>
+                  <td className='border border-slate-300 p-2 text-center'>
+                    <span className='text-emerald-600'>SÍ</span>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        {/* ÁREA DE FIRMAS DIGITALES (ESTILO DOCUMENTO) */}
+        <div className='mt-12 grid grid-cols-2 gap-8'>
+          <div className='border-t-2 border-slate-900 pt-4 text-center'>
+            <p className='text-[10px] font-black uppercase'>
+              Ejecutado por (SME)
+            </p>
+            <div className='h-8 flex justify-center items-center py-2'>
+              <span className='font-serif italic text-indigo-600 text-lg'>
+                Digital Signature: USR_QA_99
+              </span>
+            </div>
+            <p className='text-[9px] text-slate-400 font-mono'>
+              Fecha: 10-ENE-2026 14:30 UTC
+            </p>
+          </div>
+          <div className='border-t-2 border-slate-900 pt-4 text-center'>
+            <p className='text-[10px] font-black uppercase'>
+              Revisado por (QA Manager)
+            </p>
+            <div className='h-8 bg-slate-50 border border-dashed border-slate-200 mt-2 flex items-center justify-center'>
+              <button className='text-[8px] font-black text-slate-400 hover:text-indigo-600 uppercase tracking-widest'>
+                Firmar con Certificado
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
-      <div className='bg-white p-6 rounded-[2rem] border-2 border-dashed border-slate-200 flex flex-col items-center justify-center py-12 text-center'>
-        <span className='text-4xl mb-4 animate-pulse'>📸</span>
-        <p className='font-black text-slate-800 uppercase tracking-widest text-sm'>
-          Escaneo de Receta por IA
-        </p>
-        <p className='text-slate-400 text-xs font-bold mt-1'>
-          Sube la foto para procesar el pedido
-        </p>
+
+      {/* SEGUNDO FORMULARIO: IQ-002 (INFRAESTRUCTURA) */}
+      <div className='bg-white border-4 border-slate-900 p-8 rounded-sm shadow-xl max-w-5xl mx-auto animate-in slide-in-from-bottom duration-1000'>
+        <div className='bg-slate-900 text-white p-2 mb-6 flex justify-between items-center'>
+          <h4 className='text-[11px] font-black uppercase'>
+            Formulario IQ-002: Verificación de Infraestructura
+          </h4>
+        </div>
+
+        <div className='space-y-6 text-[10px]'>
+          <p className='font-black uppercase text-indigo-600'>
+            A. Hardware y Software Base
+          </p>
+          <table className='w-full border border-slate-300'>
+            <tr className='bg-slate-50 font-black uppercase border border-slate-300'>
+              <th className='p-2 text-left border'>Componente</th>
+              <th className='p-2 text-left border'>Especificado</th>
+              <th className='p-2 text-left border'>Instalado</th>
+              <th className='p-2 text-center border'>✓/✗</th>
+            </tr>
+            <tr className='border'>
+              <td className='p-2 border font-bold'>Base de Datos</td>
+              <td className='p-2 border'>PostgreSQL 15+</td>
+              <td className='p-2 border italic text-slate-500 text-[9px]'>
+                PostgreSQL 15.4 (Azure Cloud)
+              </td>
+              <td className='p-2 border text-center text-emerald-600 font-black'>
+                ✓
+              </td>
+            </tr>
+            <tr className='border'>
+              <td className='p-2 border font-bold'>Certificado SSL</td>
+              <td className='p-2 border'>TLS 1.2 o superior</td>
+              <td className='p-2 border italic text-slate-500 text-[9px]'>
+                DigiCert Global CA G2 (AES-256)
+              </td>
+              <td className='p-2 border text-center text-emerald-600 font-black'>
+                ✓
+              </td>
+            </tr>
+          </table>
+        </div>
       </div>
     </div>
   )
 
   return (
     <div className='min-h-screen bg-[#F8FAFC] text-slate-900 pb-24 md:pb-10 font-sans'>
+      {/* --- NAVBAR DESKTOP (STICKY TOP) --- */}
       <nav className='bg-white border-b border-slate-100 px-6 py-4 sticky top-0 z-50'>
         <div className='max-w-5xl mx-auto flex justify-between items-center'>
           <div className='flex items-center gap-2'>
@@ -1504,46 +1655,44 @@ export default function PharmaERP() {
               PharmaOS
             </span>
           </div>
-          <div className='hidden md:flex bg-slate-100 p-1 rounded-xl gap-1'>
+
+          {/* Menu Desktop: Con scroll horizontal sutil si crece mucho */}
+          <div className='hidden md:flex bg-slate-100 p-1 rounded-xl gap-1 overflow-x-auto max-w-2xl no-scrollbar'>
             {[
-              'dashboard',
-              'contabilidad',
-              'predicciones',
-              'produccion',
-              'control_prod',
-              'ebr',
-              'qc',
-              'qa',
-              'validacion',
-              'ia'
+              { id: 'dashboard', label: 'Dashboard' },
+              { id: 'contabilidad', label: 'Logística' },
+              { id: 'produccion', label: 'BOM' },
+              { id: 'control_prod', label: 'MES' },
+              { id: 'ebr', label: 'eBR' },
+              { id: 'qc', label: 'QC' },
+              { id: 'qa', label: 'QA' },
+              { id: 'validacionFDA', label: 'FDA IQ/OQ' }
             ].map((t) => (
               <button
-                key={t}
-                onClick={() => setTab(t)}
-                className={`px-4 py-2 rounded-lg text-[10px] font-black uppercase transition-all ${
-                  tab === t
+                key={t.id}
+                onClick={() => setTab(t.id)}
+                className={`px-3 py-2 rounded-lg text-[9px] font-black uppercase whitespace-nowrap transition-all ${
+                  tab === t.id
                     ? 'bg-white text-indigo-600 shadow-sm'
                     : 'text-slate-500 hover:text-slate-800'
                 }`}
               >
-                {t === 'ia' ? 'IA Smart' : t}
+                {t.label}
               </button>
             ))}
           </div>
+
           <div className='w-8 h-8 rounded-full bg-indigo-50 border border-indigo-100 flex items-center justify-center text-[10px] font-black text-indigo-600'>
             ADM
           </div>
         </div>
       </nav>
 
+      {/* --- CONTENIDO PRINCIPAL --- */}
       <main className='max-w-5xl mx-auto p-6 md:p-10'>
         <div className='mb-8'>
           <h2 className='text-3xl font-black text-slate-900 tracking-tight capitalize'>
-            {tab === 'ia'
-              ? 'IA Insights'
-              : tab === 'predicciones'
-              ? 'Tendencias Futuras'
-              : tab}
+            {tab === 'validacionFDA' ? 'Protocolos FDA' : tab.replace('_', ' ')}
           </h2>
           <p className='text-slate-400 font-bold text-xs tracking-widest uppercase mt-1'>
             {new Date().toLocaleDateString('es-ES', {
@@ -1554,38 +1703,50 @@ export default function PharmaERP() {
             })}
           </p>
         </div>
+
+        {/* Renderizado de componentes */}
         {tab === 'dashboard' && <Dashboard />}
         {tab === 'contabilidad' && <ContabilidadYLogistica />}
-        {tab === 'predicciones' && <Predictivo />}
         {tab === 'produccion' && <ProduccionYCalidad />}
         {tab === 'control_prod' && <ControlProduccion />}
         {tab === 'ebr' && <EBR />}
         {tab === 'qc' && <ControlCalidad />}
         {tab === 'qa' && <AseguramientoCalidad />}
-        {tab === 'validacion' && <SeccionValidacion />}
-        {tab === 'ia' && <IAInsights />}
+        {tab === 'validacionFDA' && <SeccionValidacionFDA />}
       </main>
 
-      <div className='md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-slate-100 px-6 py-3 flex justify-around items-center z-50 shadow-[0_-10px_40px_rgba(0,0,0,0.05)]'>
-        {[
-          { id: 'dashboard', icon: '📊', label: 'Home' },
-          { id: 'pos', icon: '💰', label: 'Ventas' },
-          { id: 'predicciones', icon: '🔮', label: 'IA Trends' },
-          { id: 'ia', icon: '🤖', label: 'IA' }
-        ].map((item) => (
-          <button
-            key={item.id}
-            onClick={() => setTab(item.id)}
-            className={`flex flex-col items-center gap-1 ${
-              tab === item.id ? 'text-indigo-600' : 'text-slate-400'
-            }`}
-          >
-            <span className='text-xl'>{item.icon}</span>
-            <span className='text-[8px] font-black uppercase'>
-              {item.label}
-            </span>
-          </button>
-        ))}
+      {/* --- NAVBAR MÓVIL (BOTTOM NAV CON SCROLL) --- */}
+      {/* Agregamos 'overflow-x-auto' para que el usuario pueda deslizar y ver todas las opciones */}
+      <div className='md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-slate-100 z-50 shadow-[0_-10px_40px_rgba(0,0,0,0.08)]'>
+        <div className='flex overflow-x-auto no-scrollbar items-center py-3 px-4 gap-6 focus:outline-none'>
+          {[
+            { id: 'dashboard', icon: '📊', label: 'Home' },
+            { id: 'contabilidad', icon: '📦', label: 'Stock' },
+            { id: 'produccion', icon: '🧪', label: 'BOM' },
+            { id: 'control_prod', icon: '⚙️', label: 'MES' },
+            { id: 'ebr', icon: '📋', label: 'eBR' },
+            { id: 'qc', icon: '🔬', label: 'QC' },
+            { id: 'validacionFDA', icon: '⚖️', label: 'FDA' }
+          ].map((item) => (
+            <button
+              key={item.id}
+              onClick={() => setTab(item.id)}
+              className={`flex flex-col items-center min-w-[50px] gap-1 transition-all ${
+                tab === item.id ? 'text-indigo-600 scale-110' : 'text-slate-400'
+              }`}
+            >
+              <span className='text-xl'>{item.icon}</span>
+              <span
+                className={`text-[8px] font-black uppercase tracking-tighter whitespace-nowrap`}
+              >
+                {item.label}
+              </span>
+              {tab === item.id && (
+                <div className='w-1 h-1 bg-indigo-600 rounded-full mt-0.5 animate-pulse'></div>
+              )}
+            </button>
+          ))}
+        </div>
       </div>
     </div>
   )
