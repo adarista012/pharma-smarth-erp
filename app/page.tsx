@@ -4,118 +4,141 @@ import React, { useState } from 'react'
 export default function PharmaERP() {
   const [tab, setTab] = useState('dashboard')
 
-  // --- COMPONENTE: PREDICCIONES IA ---
-  const Predictivo = () => (
-    <div className='animate-in fade-in zoom-in duration-500 space-y-6'>
-      <div className='bg-amber-50 border-2 border-amber-200 p-6 rounded-[2.5rem] flex items-center gap-4'>
-        <span className='text-4xl'>⚠️</span>
-        <div>
-          <h4 className='font-black text-amber-900 uppercase text-xs tracking-widest'>
-            Alerta de Abastecimiento
-          </h4>
-          <p className='text-amber-800 text-sm font-medium'>
-            Se prevé un aumento del 40% en antigripales para la próxima semana
-            debido al frente frío.
-          </p>
-        </div>
-      </div>
-      <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
-        <div className='bg-white p-8 rounded-[2.5rem] border border-slate-100 shadow-sm'>
-          <h3 className='font-black text-slate-800 mb-6 uppercase text-sm tracking-widest'>
-            Tendencia: Antigripales
-          </h3>
-          <div className='h-40 flex items-end gap-3'>
-            {[30, 35, 40, 45, 80, 95, 100].map((h, i) => (
-              <div key={i} className='flex-1 flex flex-col items-center gap-2'>
-                <div
-                  style={{ height: `${h}%` }}
-                  className={`w-full rounded-t-xl transition-all duration-700 ${
-                    i > 3
-                      ? 'bg-indigo-600 shadow-[0_0_15px_rgba(79,70,229,0.3)]'
-                      : 'bg-slate-200'
-                  }`}
-                ></div>
-                <span className='text-[10px] font-black text-slate-400'>
-                  Día {i + 1}
-                </span>
-              </div>
-            ))}
-          </div>
-          <p className='text-[10px] text-center mt-4 font-bold text-indigo-600 uppercase tracking-tighter italic'>
-            ▲ La IA predice pico de ventas en 72 horas
-          </p>
-        </div>
-        <div className='bg-white p-8 rounded-[2.5rem] border border-slate-100 shadow-sm flex flex-col justify-between'>
-          <div>
-            <h3 className='font-black text-slate-800 mb-4 uppercase text-sm tracking-widest'>
-              Sugerencia de Pedido
-            </h3>
-            <div className='space-y-4'>
-              <div className='flex justify-between items-center border-b border-slate-50 pb-2 text-sm font-bold'>
-                <span>Noxpirín Plus</span>
-                <span className='text-indigo-600'>+50 unidades</span>
-              </div>
-              <div className='flex justify-between items-center border-b border-slate-50 pb-2 text-sm font-bold'>
-                <span>Vitamina C</span>
-                <span className='text-indigo-600'>+30 unidades</span>
-              </div>
-            </div>
-          </div>
-          <button className='w-full bg-slate-900 text-white py-4 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-indigo-600 transition-colors mt-6'>
-            Aprobar Orden Automática
-          </button>
-        </div>
-      </div>
-    </div>
-  )
-
   const Dashboard = () => (
     <div className='animate-in fade-in zoom-in duration-500 space-y-8'>
-      {/* 18. Business Intelligence (KPIs Globales) */}
+      {/* 18. Business Intelligence (KPIs Globales) - AHORA CLICABLES */}
       <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4'>
         {[
           {
+            id: 'control_prod',
             label: 'OEE Global',
             val: '88.2%',
             desc: 'Rendimiento Planta',
             color: 'text-indigo-600'
           },
           {
+            id: 'qc',
             label: 'Alertas Calidad',
             val: '02',
             desc: 'Pendientes QA',
             color: 'text-rose-600'
           },
           {
+            id: 'qa',
             label: 'Cumplimiento',
             val: '100%',
             desc: 'ALCOA+ Status',
             color: 'text-emerald-600'
           },
           {
+            id: 'validacionFDA',
             label: 'Audit Trail',
             val: 'Activo',
             desc: 'Inmutable (21 CFR)',
             color: 'text-slate-900'
           }
         ].map((kpi, i) => (
-          <div
+          <button
             key={i}
-            className='bg-white p-5 rounded-[2rem] border border-slate-100 shadow-sm'
+            onClick={() => setTab(kpi.id)}
+            className='bg-white p-5 rounded-[2rem] border border-slate-100 shadow-sm text-left hover:border-indigo-300 transition-all active:scale-95'
           >
             <p className='text-slate-400 text-[9px] font-black uppercase tracking-widest'>
               {kpi.label}
             </p>
             <p className={`text-2xl font-black mt-1 ${kpi.color}`}>{kpi.val}</p>
             <p className='text-[10px] text-slate-400 font-bold'>{kpi.desc}</p>
-          </div>
+          </button>
         ))}
       </div>
+      {/* 1. GESTIÓN DE FÓRMULAS MAESTRAS (BOM CORE) */}
+      <div
+        onClick={() => setTab('produccion')}
+        className='lg:col-span-2 bg-white p-8 rounded-[2.5rem] border border-slate-100 shadow-sm cursor-pointer hover:border-indigo-400 transition-all group relative overflow-hidden'
+      >
+        {/* Decoración de fondo para resaltar que es un Módulo Core */}
+        <div className='absolute -right-4 -top-4 w-24 h-24 bg-indigo-50 rounded-full opacity-50 group-hover:scale-110 transition-transform'></div>
 
-      {/* BLOQUE SUPERIOR: 10, 11, 12 (Lo que ya tenías) */}
+        <div className='flex justify-between items-start relative z-10'>
+          <div>
+            <div className='flex items-center gap-2 mb-2'>
+              <span className='bg-indigo-600 text-white text-[8px] font-black px-2 py-0.5 rounded-full uppercase tracking-tighter'>
+                Módulo Core
+              </span>
+              <h4 className='font-black text-slate-800 text-xs uppercase tracking-widest'>
+                1. Gestión de Fórmulas Maestras (BOM)
+              </h4>
+            </div>
+            <p className='text-[10px] text-slate-400 font-bold mb-6'>
+              Control de versiones, escalamiento y cálculo automático de
+              materiales.
+            </p>
+          </div>
+          <span className='text-2xl group-hover:rotate-12 transition-transform'>
+            🧪
+          </span>
+        </div>
+
+        <div className='grid grid-cols-1 md:grid-cols-2 gap-6 relative z-10'>
+          {/* Mini Indicadores de Fórmulas */}
+          <div className='space-y-3'>
+            <div className='flex justify-between items-center bg-slate-50 p-3 rounded-xl'>
+              <span className='text-[9px] font-black text-slate-500 uppercase'>
+                Versiones Activas
+              </span>
+              <span className='text-xs font-black text-indigo-600'>142</span>
+            </div>
+            <div className='flex justify-between items-center bg-slate-50 p-3 rounded-xl'>
+              <span className='text-[9px] font-black text-slate-500 uppercase'>
+                En Escalamiento
+              </span>
+              <span className='text-xs font-black text-amber-600'>03</span>
+            </div>
+          </div>
+
+          {/* Lista de funcionalidades Core (Lo que pidió el cliente) */}
+          <ul className='space-y-2'>
+            {[
+              'Control de versiones de fórmulas',
+              'Escalamiento de lotes (Piloto → Prod)',
+              'Cálculo automático de materiales'
+            ].map((item, i) => (
+              <li
+                key={i}
+                className='flex items-center gap-2 text-[9px] font-bold text-slate-600'
+              >
+                <div className='w-1 h-1 bg-indigo-400 rounded-full'></div>
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div className='mt-6 pt-4 border-t border-slate-50 flex justify-between items-center'>
+          <span className='text-[9px] font-black text-indigo-600 uppercase tracking-widest group-hover:translate-x-2 transition-transform inline-block'>
+            Entrar al Maestro de Fórmulas →
+          </span>
+          <div className='flex -space-x-2'>
+            {[1, 2, 3].map((i) => (
+              <div
+                key={i}
+                className='w-5 h-5 rounded-full border-2 border-white bg-slate-200 flex items-center justify-center text-[7px] font-black'
+              >
+                {String.fromCharCode(64 + i)}
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* BLOQUE SUPERIOR: 10, 11, 12 */}
       <div className='grid grid-cols-1 lg:grid-cols-3 gap-6'>
-        {/* 10. Gestión Documental (SOPs) */}
-        <div className='bg-white p-6 rounded-[2.5rem] border border-slate-100 shadow-sm'>
+        {/* 10. Gestión Documental (SOPs) -> NAVEGA A QA */}
+
+        <div
+          onClick={() => setTab('qa')}
+          className='bg-white p-6 rounded-[2.5rem] border border-slate-100 shadow-sm cursor-pointer hover:border-indigo-200 transition-all'
+        >
           <div className='flex justify-between items-center mb-6'>
             <h4 className='font-black text-slate-800 text-[10px] uppercase tracking-widest'>
               10. Gestión Documental
@@ -152,8 +175,11 @@ export default function PharmaERP() {
           </div>
         </div>
 
-        {/* 11. Calibración y Mantenimiento */}
-        <div className='bg-white p-6 rounded-[2.5rem] border border-slate-100 shadow-sm'>
+        {/* 11. Calibración y Mantenimiento -> NAVEGA A CONTROL_PROD */}
+        <div
+          onClick={() => setTab('control_prod')}
+          className='bg-white p-6 rounded-[2.5rem] border border-slate-100 shadow-sm cursor-pointer hover:border-indigo-200 transition-all'
+        >
           <h4 className='font-black text-slate-800 text-[10px] uppercase tracking-widest mb-6'>
             11. Mantenimiento y Equipos
           </h4>
@@ -170,8 +196,11 @@ export default function PharmaERP() {
           </div>
         </div>
 
-        {/* 12. Gestión de Validaciones (IQ, OQ, PQ) */}
-        <div className='bg-indigo-600 p-8 rounded-[2.5rem] text-white relative overflow-hidden shadow-xl'>
+        {/* 12. Gestión de Validaciones (IQ, OQ, PQ) -> NAVEGA A VALIDACION FDA */}
+        <div
+          onClick={() => setTab('validacionFDA')}
+          className='bg-indigo-600 p-8 rounded-[2.5rem] text-white relative overflow-hidden shadow-xl cursor-pointer hover:ring-4 ring-indigo-500/30 transition-all'
+        >
           <h4 className='font-black text-indigo-200 text-[10px] uppercase tracking-widest mb-6'>
             12. Validaciones
           </h4>
@@ -223,8 +252,11 @@ export default function PharmaERP() {
           </div>
         </div>
 
-        {/* 19. Administración y Audit Trail */}
-        <div className='bg-slate-900 p-8 rounded-[2.5rem] text-white relative overflow-hidden'>
+        {/* 19. Administración y Audit Trail -> AHORA NAVEGA A VALIDACIONFDA */}
+        <div
+          onClick={() => setTab('validacionFDA')}
+          className='bg-slate-900 p-8 rounded-[2.5rem] text-white relative overflow-hidden cursor-pointer hover:ring-4 ring-slate-800 transition-all'
+        >
           <h4 className='font-black text-indigo-400 text-[10px] uppercase tracking-widest mb-4'>
             19. Administración y Audit Trail
           </h4>
@@ -232,13 +264,16 @@ export default function PharmaERP() {
             <p>[10:31] USR_ADMIN: Acceso a Fórmula Maestro</p>
             <p>[10:28] SYS: Backup Cloud Completado</p>
           </div>
-          <button className='w-full mt-4 py-2 bg-indigo-600 rounded-xl text-[9px] font-black uppercase'>
+          <button className='w-full mt-4 py-2 bg-indigo-600 rounded-xl text-[9px] font-black uppercase hover:bg-indigo-500 transition-colors'>
             Gestionar Roles
           </button>
         </div>
 
-        {/* Consideraciones Críticas e Integraciones */}
-        <div className='bg-white p-8 rounded-[2.5rem] border border-slate-100 shadow-sm'>
+        {/* Consideraciones Críticas e Integraciones -> NAVEGA A CONTABILIDAD/STOCK */}
+        <div
+          onClick={() => setTab('contabilidad')}
+          className='bg-white p-8 rounded-[2.5rem] border border-slate-100 shadow-sm cursor-pointer hover:border-indigo-200 transition-all'
+        >
           <h4 className='font-black text-slate-400 text-[9px] uppercase tracking-widest mb-4 italic'>
             Integraciones & Cumplimiento
           </h4>
@@ -264,7 +299,6 @@ export default function PharmaERP() {
       </div>
     </div>
   )
-
   const ContabilidadYLogistica = () => (
     <div className='animate-in fade-in zoom-in duration-500 space-y-6'>
       {/* --- SECCIÓN LOGÍSTICA (PUNTOS 6, 7, 8, 9) --- */}
