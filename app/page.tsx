@@ -9,9 +9,9 @@ export default function PharmaERP() {
   const [tab, setTab] = useState('dashboard')
 
   const Dashboard = () => (
-    <div className='animate-in fade-in zoom-in duration-500 space-y-8'>
-      {/* 18. Business Intelligence (KPIs Globales) - AHORA CLICABLES */}
-      <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4'>
+    <div className='animate-in fade-in zoom-in duration-500 space-y-6 sm:space-y-8 pb-10'>
+      {/* 18. Business Intelligence (KPIs Globales) - Grid optimizado: 2 col en móvil, 4 en PC */}
+      <div className='grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4'>
         {[
           {
             id: 'control_prod',
@@ -45,197 +45,194 @@ export default function PharmaERP() {
           <button
             key={i}
             onClick={() => setTab(kpi.id)}
-            className='bg-white p-5 rounded-[2rem] border border-slate-100 shadow-sm text-left hover:border-indigo-300 transition-all active:scale-95'
+            className='bg-white p-4 sm:p-5 rounded-[1.5rem] sm:rounded-[2rem] border border-slate-100 shadow-sm text-left hover:border-indigo-300 transition-all active:scale-95'
           >
-            <p className='text-slate-400 text-[9px] font-black uppercase tracking-widest'>
+            <p className='text-slate-400 text-[8px] sm:text-[9px] font-black uppercase tracking-tighter sm:tracking-widest'>
               {kpi.label}
             </p>
-            <p className={`text-2xl font-black mt-1 ${kpi.color}`}>{kpi.val}</p>
-            <p className='text-[10px] text-slate-400 font-bold'>{kpi.desc}</p>
+            <p className={`text-xl sm:text-2xl font-black mt-1 ${kpi.color}`}>
+              {kpi.val}
+            </p>
+            <p className='text-[9px] sm:text-[10px] text-slate-400 font-bold leading-tight'>
+              {kpi.desc}
+            </p>
           </button>
         ))}
       </div>
-      {/* 1. GESTIÓN DE FÓRMULAS MAESTRAS (BOM CORE) */}
-      <div
-        onClick={() => setTab('produccion')}
-        className='lg:col-span-2 bg-white p-8 rounded-[2.5rem] border border-slate-100 shadow-sm cursor-pointer hover:border-indigo-400 transition-all group relative overflow-hidden'
-      >
-        {/* Decoración de fondo para resaltar que es un Módulo Core */}
-        <div className='absolute -right-4 -top-4 w-24 h-24 bg-indigo-50 rounded-full opacity-50 group-hover:scale-110 transition-transform'></div>
 
-        <div className='flex justify-between items-start relative z-10'>
-          <div>
-            <div className='flex items-center gap-2 mb-2'>
-              <span className='bg-indigo-600 text-white text-[8px] font-black px-2 py-0.5 rounded-full uppercase tracking-tighter'>
-                Módulo Core
-              </span>
-              <h4 className='font-black text-slate-800 text-xs uppercase tracking-widest'>
-                PRODUCCIÓN Y CALIDAD
-              </h4>
-            </div>
-            <p className='text-[10px] text-slate-400 font-bold mb-6'>
-              Control de versiones, escalamiento y cálculo automático de
-              materiales.
-            </p>
-          </div>
-          <span className='text-2xl group-hover:rotate-12 transition-transform'>
-            🧪
-          </span>
-        </div>
-
-        <div className='grid grid-cols-1 md:grid-cols-2 gap-6 relative z-10'>
-          {/* Mini Indicadores de Fórmulas */}
-          <div className='space-y-3'>
-            <div className='flex justify-between items-center bg-slate-50 p-3 rounded-xl'>
-              <span className='text-[9px] font-black text-slate-500 uppercase'>
-                Versiones Activas
-              </span>
-              <span className='text-xs font-black text-indigo-600'>142</span>
-            </div>
-            <div className='flex justify-between items-center bg-slate-50 p-3 rounded-xl'>
-              <span className='text-[9px] font-black text-slate-500 uppercase'>
-                En Escalamiento
-              </span>
-              <span className='text-xs font-black text-amber-600'>03</span>
-            </div>
-          </div>
-
-          {/* Lista de funcionalidades Core (Lo que pidió el cliente) */}
-          <ul className='space-y-2'>
-            {[
-              'Control de versiones de fórmulas',
-              'Escalamiento de lotes (Piloto → Prod)',
-              'Cálculo automático de materiales'
-            ].map((item, i) => (
-              <li
-                key={i}
-                className='flex items-center gap-2 text-[9px] font-bold text-slate-600'
-              >
-                <div className='w-1 h-1 bg-indigo-400 rounded-full'></div>
-                {item}
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div className='mt-6 pt-4 border-t border-slate-50 flex justify-between items-center'>
-          <span className='text-[9px] font-black text-indigo-600 uppercase tracking-widest group-hover:translate-x-2 transition-transform inline-block'>
-            Entrar al Maestro de Fórmulas →
-          </span>
-          <div className='flex -space-x-2'>
-            {[1, 2, 3].map((i) => (
-              <div
-                key={i}
-                className='w-5 h-5 rounded-full border-2 border-white bg-slate-200 flex items-center justify-center text-[7px] font-black'
-              >
-                {String.fromCharCode(64 + i)}
+      {/* SECCIÓN MÓDULOS CORE - Ajuste de gap para móvil */}
+      <div className='grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8'>
+        {/* 1. GESTIÓN DE FÓRMULAS MAESTRAS */}
+        <div
+          onClick={() => setTab('produccion')}
+          className='bg-white p-6 sm:p-8 rounded-[2rem] sm:rounded-[2.5rem] border border-slate-100 shadow-sm cursor-pointer hover:border-indigo-400 transition-all group relative overflow-hidden'
+        >
+          <div className='absolute -right-4 -top-4 w-24 h-24 bg-indigo-50 rounded-full opacity-50 group-hover:scale-110 transition-transform'></div>
+          <div className='flex justify-between items-start relative z-10'>
+            <div>
+              <div className='flex items-center gap-2 mb-2'>
+                <span className='bg-indigo-600 text-white text-[8px] font-black px-2 py-0.5 rounded-full uppercase tracking-tighter'>
+                  Módulo Core
+                </span>
+                <h4 className='font-black text-slate-800 text-xs uppercase tracking-widest'>
+                  PRODUCCIÓN Y CALIDAD
+                </h4>
               </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      <div
-        onClick={() => setTab('contabilidad')}
-        className='lg:col-span-2 bg-white p-8 rounded-[2.5rem] border border-slate-100 shadow-sm cursor-pointer hover:border-orange-400 transition-all group overflow-hidden relative'
-      >
-        <div className='absolute right-0 top-0 p-8 opacity-10 group-hover:rotate-12 transition-transform'>
-          <span className='text-6xl'>📦</span>
-        </div>
-
-        <div className='relative z-10'>
-          <span className='bg-orange-600 text-white text-[8px] font-black px-2 py-0.5 rounded-full uppercase tracking-tighter'>
-            Módulo Core
-          </span>
-          <h4 className='font-black text-slate-800 text-xs uppercase tracking-widest mt-2'>
-            CONTABILIDAD Y MATERIALES
-          </h4>
-          <p className='text-[10px] text-slate-400 font-bold mb-6'>
-            Inventarios, WMS, Compras y Recepción.
-          </p>
-
-          <div className='flex gap-4'>
-            <div className='flex-1 p-3 bg-slate-50 rounded-xl'>
-              <p className='text-[7px] font-black text-slate-400 uppercase'>
-                Stock Total
+              <p className='text-[10px] text-slate-400 font-bold mb-6'>
+                Control de versiones, escalamiento y cálculo automático.
               </p>
-              <p className='text-xs font-black text-slate-800'>8,420 SKUs</p>
             </div>
-            <div className='flex-1 p-3 bg-orange-50 rounded-xl'>
-              <p className='text-[7px] font-black text-orange-400 uppercase'>
-                Por Recibir
-              </p>
-              <p className='text-xs font-black text-orange-600'>15 OC</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* TARJETA REGULATORIOS Y VALIDACIÓN */}
-      <div
-        onClick={() => setTab('regulatorio')}
-        className='lg:col-span-1 bg-slate-900 p-8 rounded-[2.5rem] shadow-sm cursor-pointer hover:ring-4 ring-blue-500/20 transition-all group'
-      >
-        <div className='flex flex-col h-full'>
-          <div className='flex justify-between items-start mb-6'>
-            <span className='bg-blue-600 text-white text-[8px] font-black px-2 py-0.5 rounded-full uppercase'>
-              Auditable
-            </span>
-            <span className='text-2xl group-hover:scale-110 transition-transform'>
-              🛡️
-            </span>
-          </div>
-
-          <h4 className='font-black text-white text-xs uppercase tracking-widest mt-2'>
-            REGULATORIOS Y VALIDACIÓN
-          </h4>
-          <p className='text-[9px] text-slate-400 font-bold mt-2'>
-            Cumplimiento GxP, SOPs y Protocolos IQ/OQ/PQ.
-          </p>
-
-          <div className='mt-auto pt-6 flex gap-2 overflow-hidden'>
-            <div className='w-2 h-2 rounded-full bg-emerald-500 animate-pulse'></div>
-            <span className='text-[7px] font-black text-slate-500 uppercase tracking-widest'>
-              Data Integrity Verified
-            </span>
-          </div>
-        </div>
-      </div>
-
-      {/* TARJETA MÓDULOS DE SOPORTE */}
-      <div
-        onClick={() => setTab('soporte')}
-        className='lg:col-span-1 bg-white p-8 rounded-[2.5rem] border border-slate-100 shadow-sm cursor-pointer hover:border-emerald-400 transition-all group'
-      >
-        <div className='flex flex-col h-full'>
-          <div className='flex justify-between items-start mb-4'>
-            <span className='bg-emerald-100 text-emerald-700 text-[8px] font-black px-2 py-0.5 rounded-full uppercase'>
-              Global Support
-            </span>
             <span className='text-2xl group-hover:rotate-12 transition-transform'>
-              ⚙️
+              🧪
             </span>
           </div>
-          <h4 className='font-black text-slate-800 text-xs uppercase tracking-widest mt-2'>
-            MÓDULOS DE SOPORTE
-          </h4>
-          <p className='text-[9px] text-slate-400 font-bold mt-2'>
-            RRHH, Seguridad, BI y Admin.
-          </p>
 
-          <div className='mt-6 grid grid-cols-2 gap-2'>
-            <div className='h-1 bg-emerald-500 rounded-full'></div>
-            <div className='h-1 bg-amber-400 rounded-full'></div>
+          <div className='grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 relative z-10'>
+            <div className='space-y-3'>
+              <div className='flex justify-between items-center bg-slate-50 p-3 rounded-xl'>
+                <span className='text-[9px] font-black text-slate-500 uppercase'>
+                  Versiones
+                </span>
+                <span className='text-xs font-black text-indigo-600'>142</span>
+              </div>
+              <div className='flex justify-between items-center bg-slate-50 p-3 rounded-xl'>
+                <span className='text-[9px] font-black text-slate-500 uppercase'>
+                  Escalamiento
+                </span>
+                <span className='text-xs font-black text-amber-600'>03</span>
+              </div>
+            </div>
+            <ul className='space-y-2'>
+              {[
+                'Control de versiones de fórmulas',
+                'Escalamiento de lotes',
+                'Cálculo automático'
+              ].map((item, i) => (
+                <li
+                  key={i}
+                  className='flex items-center gap-2 text-[9px] font-bold text-slate-600'
+                >
+                  <div className='w-1 h-1 bg-indigo-400 rounded-full'></div>
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className='mt-6 pt-4 border-t border-slate-50 flex justify-between items-center'>
+            <span className='text-[9px] font-black text-indigo-600 uppercase group-hover:translate-x-2 transition-transform inline-block'>
+              Entrar →
+            </span>
+            <div className='flex -space-x-2'>
+              {[1, 2, 3].map((i) => (
+                <div
+                  key={i}
+                  className='w-5 h-5 rounded-full border-2 border-white bg-slate-200 flex items-center justify-center text-[7px] font-black'
+                >
+                  {String.fromCharCode(64 + i)}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* CONTABILIDAD Y MATERIALES */}
+        <div
+          onClick={() => setTab('contabilidad')}
+          className='bg-white p-6 sm:p-8 rounded-[2rem] sm:rounded-[2.5rem] border border-slate-100 shadow-sm cursor-pointer hover:border-orange-400 transition-all group overflow-hidden relative min-h-[220px] flex flex-col justify-between'
+        >
+          <div className='absolute right-0 top-0 p-8 opacity-10 group-hover:rotate-12 transition-transform'>
+            <span className='text-6xl sm:text-7xl'>📦</span>
+          </div>
+          <div className='relative z-10'>
+            <span className='bg-orange-600 text-white text-[8px] font-black px-2 py-0.5 rounded-full uppercase'>
+              Módulo Core
+            </span>
+            <h4 className='font-black text-slate-800 text-xs uppercase tracking-widest mt-2'>
+              CONTABILIDAD Y MATERIALES
+            </h4>
+            <p className='text-[10px] text-slate-400 font-bold mb-6'>
+              Inventarios, WMS, Compras y Recepción.
+            </p>
+            <div className='flex gap-3 sm:gap-4'>
+              <div className='flex-1 p-3 bg-slate-50 rounded-xl'>
+                <p className='text-[7px] font-black text-slate-400 uppercase'>
+                  Stock Total
+                </p>
+                <p className='text-xs font-black text-slate-800'>8,420 SKUs</p>
+              </div>
+              <div className='flex-1 p-3 bg-orange-50 rounded-xl'>
+                <p className='text-[7px] font-black text-orange-400 uppercase'>
+                  Por Recibir
+                </p>
+                <p className='text-xs font-black text-orange-600'>15 OC</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* BLOQUE SUPERIOR: 10, 11, 12 */}
-      <div className='grid grid-cols-1 lg:grid-cols-3 gap-6'>
-        {/* 10. Gestión Documental (SOPs) -> NAVEGA A QA */}
+      {/* TARJETAS DE SEGUNDO NIVEL: 1 col en móvil, 2 en tablets, 2 en PC */}
+      <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+        <div
+          onClick={() => setTab('regulatorio')}
+          className='bg-slate-900 p-8 rounded-[2.5rem] shadow-sm cursor-pointer hover:ring-4 ring-blue-500/20 transition-all group'
+        >
+          <div className='flex flex-col h-full'>
+            <div className='flex justify-between items-start mb-6'>
+              <span className='bg-blue-600 text-white text-[8px] font-black px-2 py-0.5 rounded-full uppercase'>
+                Auditable
+              </span>
+              <span className='text-2xl group-hover:scale-110 transition-transform'>
+                🛡️
+              </span>
+            </div>
+            <h4 className='font-black text-white text-xs uppercase tracking-widest mt-2'>
+              REGULATORIOS Y VALIDACIÓN
+            </h4>
+            <p className='text-[9px] text-slate-400 font-bold mt-2'>
+              Cumplimiento GxP, SOPs y Protocolos IQ/OQ/PQ.
+            </p>
+            <div className='mt-8 pt-6 border-t border-white/5 flex gap-2 overflow-hidden items-center'>
+              <div className='w-2 h-2 rounded-full bg-emerald-500 animate-pulse'></div>
+              <span className='text-[7px] font-black text-slate-500 uppercase tracking-widest'>
+                Data Integrity Verified
+              </span>
+            </div>
+          </div>
+        </div>
 
         <div
+          onClick={() => setTab('soporte')}
+          className='bg-white p-8 rounded-[2.5rem] border border-slate-100 shadow-sm cursor-pointer hover:border-emerald-400 transition-all group'
+        >
+          <div className='flex flex-col h-full'>
+            <div className='flex justify-between items-start mb-4'>
+              <span className='bg-emerald-100 text-emerald-700 text-[8px] font-black px-2 py-0.5 rounded-full uppercase'>
+                Global Support
+              </span>
+              <span className='text-2xl group-hover:rotate-12 transition-transform'>
+                ⚙️
+              </span>
+            </div>
+            <h4 className='font-black text-slate-800 text-xs uppercase tracking-widest mt-2'>
+              MÓDULOS DE SOPORTE
+            </h4>
+            <p className='text-[9px] text-slate-400 font-bold mt-2'>
+              RRHH, Seguridad, BI y Admin.
+            </p>
+            <div className='mt-auto pt-8 grid grid-cols-2 gap-2'>
+              <div className='h-1 bg-emerald-500 rounded-full'></div>
+              <div className='h-1 bg-amber-400 rounded-full'></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* BLOQUE DOCUMENTAL Y MANTENIMIENTO: 1 col móvil, 3 col web */}
+      <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6'>
+        <div
           onClick={() => setTab('qa')}
-          className='bg-white p-6 rounded-[2.5rem] border border-slate-100 shadow-sm cursor-pointer hover:border-indigo-200 transition-all'
+          className='bg-white p-6 rounded-[2rem] border border-slate-100 shadow-sm cursor-pointer hover:border-indigo-200 transition-all'
         >
           <div className='flex justify-between items-center mb-6'>
             <h4 className='font-black text-slate-800 text-[10px] uppercase tracking-widest'>
@@ -247,16 +244,8 @@ export default function PharmaERP() {
           </div>
           <div className='space-y-4'>
             {[
-              {
-                doc: 'SOP-PRO-01: Limpieza',
-                status: 'Vigente',
-                color: 'text-emerald-500'
-              },
-              {
-                doc: 'SOP-LAB-05: HPLC',
-                status: 'Revisión',
-                color: 'text-amber-500'
-              }
+              { doc: 'SOP-PRO-01', st: 'Vigente', c: 'text-emerald-500' },
+              { doc: 'SOP-LAB-05', st: 'Revisión', c: 'text-amber-500' }
             ].map((d, i) => (
               <div
                 key={i}
@@ -265,39 +254,37 @@ export default function PharmaERP() {
                 <span className='text-[10px] font-bold text-slate-700'>
                   {d.doc}
                 </span>
-                <span className={`text-[8px] font-black uppercase ${d.color}`}>
-                  {d.status}
+                <span className={`text-[8px] font-black uppercase ${d.c}`}>
+                  {d.st}
                 </span>
               </div>
             ))}
           </div>
         </div>
 
-        {/* 11. Calibración y Mantenimiento -> NAVEGA A CONTROL_PROD */}
         <div
           onClick={() => setTab('control_prod')}
-          className='bg-white p-6 rounded-[2.5rem] border border-slate-100 shadow-sm cursor-pointer hover:border-indigo-200 transition-all'
+          className='bg-white p-6 rounded-[2rem] border border-slate-100 shadow-sm cursor-pointer hover:border-indigo-200 transition-all'
         >
           <h4 className='font-black text-slate-800 text-[10px] uppercase tracking-widest mb-6'>
-            11. Mantenimiento y Equipos
+            11. Mantenimiento
           </h4>
-          <div className='space-y-4'>
-            <div className='flex gap-3 items-center p-3 bg-slate-50 rounded-2xl'>
-              <div className='text-lg'>⚖️</div>
-              <div className='flex-1'>
-                <p className='text-[10px] font-black'>Balanza Analítica B-09</p>
-                <p className='text-[8px] text-rose-500 font-bold uppercase'>
-                  Vence en 2 días
-                </p>
-              </div>
+          <div className='flex gap-3 items-center p-3 bg-slate-50 rounded-2xl'>
+            <div className='text-lg'>⚖️</div>
+            <div className='flex-1'>
+              <p className='text-[10px] font-black leading-tight'>
+                Balanza Analítica B-09
+              </p>
+              <p className='text-[8px] text-rose-500 font-bold uppercase'>
+                Vence en 2 días
+              </p>
             </div>
           </div>
         </div>
 
-        {/* 12. Gestión de Validaciones (IQ, OQ, PQ) -> NAVEGA A VALIDACION FDA */}
         <div
           onClick={() => setTab('validacionFDA')}
-          className='bg-indigo-600 p-8 rounded-[2.5rem] text-white relative overflow-hidden shadow-xl cursor-pointer hover:ring-4 ring-indigo-500/30 transition-all'
+          className='bg-indigo-600 p-6 rounded-[2rem] text-white shadow-xl cursor-pointer hover:ring-4 ring-indigo-500/30 transition-all sm:col-span-2 lg:col-span-1'
         >
           <h4 className='font-black text-indigo-200 text-[10px] uppercase tracking-widest mb-6'>
             12. Validaciones
@@ -307,14 +294,14 @@ export default function PharmaERP() {
               { label: 'Equipos IQ/OQ/PQ', prog: 90 },
               { label: 'Sistemas Comp.', prog: 100 }
             ].map((v, i) => (
-              <div key={i} className='space-y-1'>
+              <div key={i} className='space-y-1.5'>
                 <div className='flex justify-between text-[9px] font-black uppercase'>
                   <span>{v.label}</span>
                   <span>{v.prog}%</span>
                 </div>
-                <div className='w-full bg-white/10 h-1 rounded-full'>
+                <div className='w-full bg-white/10 h-1 rounded-full overflow-hidden'>
                   <div
-                    className='bg-white h-full'
+                    className='bg-white h-full transition-all duration-1000'
                     style={{ width: `${v.prog}%` }}
                   ></div>
                 </div>
@@ -324,24 +311,21 @@ export default function PharmaERP() {
         </div>
       </div>
 
-      {/* BLOQUE INFERIOR: 16, 17, 19 + CONSIDERACIONES CRÍTICAS */}
-      <div className='grid grid-cols-1 lg:grid-cols-3 gap-8'>
-        {/* 16 y 17. Soporte (RRHH y EHS) */}
-        <div className='space-y-6'>
-          <div className='bg-white p-6 rounded-[2.5rem] border border-slate-100 shadow-sm'>
+      {/* SECCIÓN FINAL DE SOPORTE: 1 col móvil, 3 col web */}
+      <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8'>
+        <div className='space-y-4'>
+          <div className='bg-white p-6 rounded-[2rem] border border-slate-100 shadow-sm'>
             <h4 className='font-black text-slate-800 text-[10px] uppercase tracking-widest mb-4'>
-              16. RRHH y Entrenamiento GMP
+              16. RRHH y Entrenamiento
             </h4>
             <div className='p-3 bg-slate-50 rounded-xl flex justify-between items-center'>
-              <span className='text-[10px] font-bold'>
-                Personal Certificado
-              </span>
+              <span className='text-[10px] font-bold'>Certificación GMP</span>
               <span className='text-emerald-600 font-black text-xs'>98%</span>
             </div>
           </div>
-          <div className='bg-rose-50 p-6 rounded-[2.5rem] border border-rose-100 shadow-sm'>
-            <h4 className='font-black text-rose-900 text-[10px] uppercase tracking-widest mb-4'>
-              17. Seguridad y Medio Ambiente
+          <div className='bg-rose-50 p-6 rounded-[2rem] border border-rose-100 shadow-sm'>
+            <h4 className='font-black text-rose-900 text-[10px] uppercase tracking-widest mb-2'>
+              17. EHS y Seguridad
             </h4>
             <div className='flex justify-between items-center text-[10px] font-black text-rose-700'>
               <span>Incidentes (45d)</span>
@@ -350,33 +334,31 @@ export default function PharmaERP() {
           </div>
         </div>
 
-        {/* 19. Administración y Audit Trail -> AHORA NAVEGA A VALIDACIONFDA */}
         <div
           onClick={() => setTab('validacionFDA')}
-          className='bg-slate-900 p-8 rounded-[2.5rem] text-white relative overflow-hidden cursor-pointer hover:ring-4 ring-slate-800 transition-all'
+          className='bg-slate-900 p-8 rounded-[2rem] text-white cursor-pointer hover:ring-4 ring-slate-800 transition-all'
         >
           <h4 className='font-black text-indigo-400 text-[10px] uppercase tracking-widest mb-4'>
-            19. Administración y Audit Trail
+            19. Audit Trail
           </h4>
-          <div className='p-4 bg-white/5 border border-white/10 rounded-2xl font-mono text-[8px] text-slate-400 space-y-1'>
-            <p>[10:31] USR_ADMIN: Acceso a Fórmula Maestro</p>
-            <p>[10:28] SYS: Backup Cloud Completado</p>
+          <div className='p-4 bg-white/5 border border-white/10 rounded-2xl font-mono text-[8px] text-slate-400 space-y-2'>
+            <p className='truncate'>[10:31] USR_ADMIN: Acceso Fórmulas</p>
+            <p className='truncate'>[10:28] SYS: Backup Cloud OK</p>
           </div>
-          <button className='w-full mt-4 py-2 bg-indigo-600 rounded-xl text-[9px] font-black uppercase hover:bg-indigo-500 transition-colors'>
+          <button className='w-full mt-4 py-3 bg-indigo-600 rounded-xl text-[9px] font-black uppercase hover:bg-indigo-500 transition-colors'>
             Gestionar Roles
           </button>
         </div>
 
-        {/* Consideraciones Críticas e Integraciones -> NAVEGA A CONTABILIDAD/STOCK */}
         <div
           onClick={() => setTab('contabilidad')}
-          className='bg-white p-8 rounded-[2.5rem] border border-slate-100 shadow-sm cursor-pointer hover:border-indigo-200 transition-all'
+          className='bg-white p-8 rounded-[2rem] border border-slate-100 shadow-sm cursor-pointer hover:border-indigo-200 transition-all sm:col-span-2 lg:col-span-1'
         >
           <h4 className='font-black text-slate-400 text-[9px] uppercase tracking-widest mb-4 italic'>
-            Integraciones & Cumplimiento
+            Integraciones
           </h4>
           <div className='flex flex-wrap gap-2 mb-6'>
-            {['LIMS', 'SCADA', 'ERP Fin', 'Balanzas', 'GS1'].map((tag, i) => (
+            {['LIMS', 'SCADA', 'ERP Fin', 'GS1'].map((tag, i) => (
               <span
                 key={i}
                 className='bg-slate-100 px-2 py-1 rounded text-[8px] font-black text-slate-600'
@@ -393,453 +375,6 @@ export default function PharmaERP() {
               ALCOA+ Compliance Verified
             </p>
           </div>
-        </div>
-      </div>
-    </div>
-  )
-  const ContabilidadYLogistica = () => (
-    <div className='animate-in fade-in zoom-in duration-500 space-y-6'>
-      {/* --- SECCIÓN LOGÍSTICA (PUNTOS 6, 7, 8, 9) --- */}
-
-      {/* 7. Monitoreo Ambiental en Tiempo Real */}
-      <div className='grid grid-cols-1 md:grid-cols-4 gap-4'>
-        {[
-          { label: 'Temp. Bodega A', val: '18.5°C', status: 'OK', icon: '🌡️' },
-          { label: 'Humedad Rel.', val: '45%', status: 'OK', icon: '💧' },
-          {
-            label: 'Zona Cuarentena',
-            val: '12 Lotes',
-            status: 'ALERTA',
-            icon: '🚧'
-          },
-          { label: 'Pendiente Muestreo', val: '04', status: 'PEND', icon: '🧪' }
-        ].map((item, i) => (
-          <div
-            key={i}
-            className='bg-white p-4 rounded-3xl border border-slate-100 shadow-sm flex items-center gap-3'
-          >
-            <div className='w-10 h-10 bg-slate-50 rounded-2xl flex items-center justify-center text-lg'>
-              {item.icon}
-            </div>
-            <div>
-              <p className='text-[9px] font-black text-slate-400 uppercase tracking-tighter'>
-                {item.label}
-              </p>
-              <p
-                className={`text-lg font-black ${
-                  item.status === 'ALERTA' ? 'text-rose-600' : 'text-slate-800'
-                }`}
-              >
-                {item.val}
-              </p>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      <div className='grid grid-cols-1 lg:grid-cols-3 gap-6'>
-        {/* 6 y 9. Gestión de Inventarios y Recepción */}
-        <div className='lg:col-span-2 space-y-6'>
-          <div className='bg-white rounded-[2.5rem] border border-slate-100 shadow-sm overflow-hidden'>
-            <div className='p-6 border-b border-slate-50 flex justify-between items-center bg-slate-50/50'>
-              <h3 className='font-black text-slate-800 uppercase text-xs tracking-widest'>
-                6. Inventario por Lote (FEFO/FIFO)
-              </h3>
-              <div className='flex gap-2'>
-                <span className='bg-emerald-500 text-white px-2 py-1 rounded-md text-[8px] font-black uppercase'>
-                  Aprobado
-                </span>
-                <span className='bg-amber-500 text-white px-2 py-1 rounded-md text-[8px] font-black uppercase'>
-                  Cuarentena
-                </span>
-              </div>
-            </div>
-            <table className='w-full text-left'>
-              <thead className='bg-slate-50/30 text-[9px] font-black text-slate-400 uppercase'>
-                <tr>
-                  <th className='p-4'>Material / Lote</th>
-                  <th className='p-4'>Estado</th>
-                  <th className='p-4'>Vencimiento</th>
-                  <th className='p-4 text-right'>Stock</th>
-                </tr>
-              </thead>
-              <tbody className='divide-y divide-slate-50'>
-                {[
-                  {
-                    m: 'Ácido Ascórbico',
-                    l: 'L-9921',
-                    e: 'Aprobado',
-                    v: '2027/12',
-                    q: '500 Kg'
-                  },
-                  {
-                    m: 'Frasco Ámbar 120ml',
-                    l: 'E-4420',
-                    e: 'Cuarentena',
-                    v: 'N/A',
-                    q: '5,000 Un'
-                  }
-                ].map((row, i) => (
-                  <tr
-                    key={i}
-                    className='text-xs font-bold hover:bg-slate-50 transition-colors'
-                  >
-                    <td className='p-4'>
-                      <p className='text-slate-800'>{row.m}</p>
-                      <p className='text-[9px] text-slate-400 font-mono'>
-                        {row.l}
-                      </p>
-                    </td>
-                    <td className='p-4'>
-                      <span
-                        className={`px-2 py-1 rounded-lg text-[8px] uppercase ${
-                          row.e === 'Aprobado'
-                            ? 'bg-emerald-50 text-emerald-600'
-                            : 'bg-amber-50 text-amber-600'
-                        }`}
-                      >
-                        {row.e}
-                      </span>
-                    </td>
-                    <td className='p-4 text-slate-500 font-mono'>{row.v}</td>
-                    <td className='p-4 text-right font-black text-indigo-600'>
-                      {row.q}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-
-          {/* 8. Compras y Proveedores */}
-          <div className='bg-white p-8 rounded-[2.5rem] border border-slate-100 shadow-sm'>
-            <h3 className='font-black text-slate-800 uppercase text-xs tracking-widest mb-6'>
-              8. Compras y Proveedores
-            </h3>
-            <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
-              {[
-                { name: 'BioChemical Corp', score: 98, status: 'Homologado' },
-                { name: 'Packaging Global', score: 85, status: 'Calificado' }
-              ].map((p, i) => (
-                <div
-                  key={i}
-                  className='p-4 border border-slate-100 rounded-2xl flex justify-between items-center'
-                >
-                  <div>
-                    <p className='text-xs font-black'>{p.name}</p>
-                    <p className='text-[9px] text-slate-400 font-bold uppercase'>
-                      {p.status}
-                    </p>
-                  </div>
-                  <div className='text-right'>
-                    <p className='text-sm font-black text-indigo-600'>
-                      {p.score}%
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* 7 y 9. Almacenes y Muestreo */}
-        <div className='space-y-6'>
-          <div className='bg-slate-900 text-white p-8 rounded-[2.5rem]'>
-            <h4 className='font-black text-indigo-400 text-[10px] uppercase tracking-widest mb-6'>
-              7. Operaciones de Almacén
-            </h4>
-            <div className='space-y-4'>
-              <button className='w-full bg-white/5 border border-white/10 p-4 rounded-2xl text-[10px] font-black uppercase text-left hover:bg-white/10 flex justify-between items-center transition-all'>
-                <span>Plan de Muestreo ISO 2859</span>
-                <span className='text-indigo-400'>→</span>
-              </button>
-            </div>
-          </div>
-          <div className='bg-indigo-50 p-8 rounded-[2.5rem] border border-indigo-100'>
-            <h4 className='font-black text-indigo-900 text-[10px] uppercase tracking-widest mb-4'>
-              9. Etiquetado Automático
-            </h4>
-            <div className='bg-white p-4 rounded-2xl border border-indigo-200 shadow-sm flex items-center gap-4'>
-              <div className='w-12 h-12 bg-slate-900 rounded-lg flex items-center justify-center text-white text-2xl'>
-                🔳
-              </div>
-              <div className='text-[10px] font-black'>
-                <p>AMOXICILINA 500mg</p>
-                <p className='text-indigo-600'>ESTADO: CUARENTENA</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* --- SECCIÓN COMERCIAL (PUNTOS 13, 14, 15) --- */}
-      <div className='space-y-8 mt-8 border-t border-slate-100 pt-8'>
-        <div className='grid grid-cols-1 lg:grid-cols-3 gap-8'>
-          {/* 13. Registro de Clientes */}
-          <div className='bg-white p-6 rounded-[2.5rem] border border-slate-100 shadow-sm'>
-            <h3 className='font-black text-slate-800 uppercase text-xs tracking-widest mb-6'>
-              13. Registro de Clientes
-            </h3>
-            <div className='space-y-3'>
-              {[
-                { cat: 'Farmacias', count: 124, icon: '🏪' },
-                { cat: 'Hospitales', count: 12, icon: '🏥' },
-                { cat: 'Consultorios', count: 45, icon: '🩺' },
-                { cat: 'Clínicas', count: 8, icon: '🏢' },
-                { cat: 'Exportaciones', count: 3, icon: '🌍' }
-              ].map((c, i) => (
-                <div
-                  key={i}
-                  className='flex justify-between items-center p-3 bg-slate-50 rounded-2xl hover:bg-indigo-50 transition-colors cursor-pointer'
-                >
-                  <div className='flex items-center gap-3 text-xs font-bold'>
-                    <span>{c.icon}</span>
-                    <span>{c.cat}</span>
-                  </div>
-                  <span className='text-[10px] font-black text-indigo-600'>
-                    {c.count}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* 14. Ventas y Distribución */}
-          <div className='lg:col-span-2 bg-white p-8 rounded-[2.5rem] border border-slate-100 shadow-sm'>
-            <div className='flex justify-between items-center mb-6'>
-              <h3 className='font-black text-slate-800 uppercase text-xs tracking-widest'>
-                14. Ventas y Distribución
-              </h3>
-              <span className='text-[9px] font-black bg-rose-50 text-rose-600 px-2 py-1 rounded'>
-                Registro Sanitario OK
-              </span>
-            </div>
-            <table className='w-full text-left'>
-              <thead className='text-[9px] font-black text-slate-400 uppercase'>
-                <tr>
-                  <th className='pb-4'>Orden</th>
-                  <th className='pb-4'>Cliente</th>
-                  <th className='pb-4'>Trazabilidad</th>
-                  <th className='pb-4 text-right'>Factura</th>
-                </tr>
-              </thead>
-              <tbody className='divide-y divide-slate-50'>
-                {[
-                  {
-                    id: 'OV-440',
-                    cli: 'Hospital San José',
-                    track: 'En Tránsito',
-                    fact: '$12,400'
-                  },
-                  {
-                    id: 'OV-441',
-                    cli: 'Farmacia Central',
-                    track: 'Entregado',
-                    fact: '$2,150'
-                  }
-                ].map((v, i) => (
-                  <tr key={i} className='text-xs font-bold'>
-                    <td className='py-4 text-indigo-600'>{v.id}</td>
-                    <td className='py-4'>{v.cli}</td>
-                    <td className='py-4'>{v.track}</td>
-                    <td className='py-4 text-right'>{v.fact}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        {/* 15. Track & Trace */}
-        <div className='bg-slate-900 rounded-[2.5rem] p-8 text-white relative overflow-hidden shadow-2xl'>
-          <div className='relative z-10'>
-            <div className='flex justify-between items-center mb-8'>
-              <h3 className='font-black text-indigo-400 uppercase text-xs tracking-widest'>
-                15. Trazabilidad Track & Trace
-              </h3>
-              <button className='bg-rose-600 text-white px-4 py-2 rounded-xl font-black text-[10px] uppercase'>
-                Recall Manager
-              </button>
-            </div>
-            <div className='grid grid-cols-1 md:grid-cols-3 gap-6'>
-              {[
-                { label: 'Serialización x Unidad', status: 'OK' },
-                { label: 'Agregación (Pallet)', status: 'Vinculado' },
-                { label: 'Sist. Nacional', status: 'Activo' }
-              ].map((track, i) => (
-                <div
-                  key={i}
-                  className='bg-white/5 border border-white/10 p-5 rounded-2xl flex justify-between'
-                >
-                  <p className='text-[10px] font-black uppercase'>
-                    {track.label}
-                  </p>
-                  <span className='text-[8px] font-black text-indigo-400'>
-                    {track.status}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  )
-
-  // --- NUEVO COMPONENTE: MES (Manufacturing Execution System) ---
-  const ControlProduccion = () => (
-    <div className='animate-in fade-in zoom-in duration-500 space-y-6'>
-      {/* Indicadores de Rendimiento OEE */}
-      <div className='grid grid-cols-1 sm:grid-cols-3 gap-4'>
-        {[
-          {
-            label: 'Disponibilidad',
-            val: '92.4%',
-            color: 'text-indigo-600',
-            trend: 'OK'
-          },
-          {
-            label: 'Rendimiento',
-            val: '88.1%',
-            color: 'text-emerald-600',
-            trend: '▲ 2%'
-          },
-          {
-            label: 'OEE Global',
-            val: '84.5%',
-            color: 'text-slate-900',
-            trend: 'OBJ: 85%'
-          }
-        ].map((stat, i) => (
-          <div
-            key={i}
-            className='bg-white p-6 rounded-[2.5rem] border border-slate-100 shadow-sm'
-          >
-            <p className='text-slate-400 text-[10px] font-black uppercase tracking-widest'>
-              {stat.label}
-            </p>
-            <div className='flex justify-between items-end mt-2'>
-              <p className={`text-3xl font-black ${stat.color}`}>{stat.val}</p>
-              <span className='text-[10px] font-bold bg-slate-50 px-2 py-1 rounded-lg text-slate-500 uppercase'>
-                {stat.trend}
-              </span>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      <div className='grid grid-cols-1 lg:grid-cols-3 gap-6'>
-        {/* Órdenes de Fabricación en Tiempo Real */}
-        <div className='lg:col-span-2 space-y-4'>
-          <h3 className='font-black text-slate-800 uppercase text-xs tracking-widest ml-4'>
-            Líneas de Producción Activas
-          </h3>
-          {[
-            {
-              id: 'OF-2026-001',
-              prod: 'Ibuprofeno 400mg',
-              linea: 'Línea A (Tableteado)',
-              progreso: 65,
-              estado: 'Produciendo'
-            },
-            {
-              id: 'OF-2026-004',
-              prod: 'Amoxicilina Susp.',
-              linea: 'Línea C (Líquidos)',
-              progreso: 20,
-              estado: 'Ajuste de Equipo'
-            },
-            {
-              id: 'OF-2026-009',
-              prod: 'Vitamina C Kids',
-              linea: 'Línea B (Blister)',
-              progreso: 100,
-              estado: 'Finalizado'
-            }
-          ].map((of, i) => (
-            <div
-              key={i}
-              className='bg-white p-6 rounded-[2rem] border border-slate-100 relative overflow-hidden'
-            >
-              <div className='flex justify-between items-start mb-4'>
-                <div>
-                  <span className='text-[9px] font-black bg-indigo-50 text-indigo-600 px-2 py-1 rounded-md mb-2 inline-block'>
-                    {of.id}
-                  </span>
-                  <h4 className='font-black text-slate-800 text-sm'>
-                    {of.prod}
-                  </h4>
-                  <p className='text-slate-400 text-[10px] font-bold uppercase'>
-                    {of.linea}
-                  </p>
-                </div>
-                <span
-                  className={`text-[10px] font-black uppercase ${
-                    of.estado === 'Produciendo'
-                      ? 'text-emerald-500 animate-pulse'
-                      : 'text-slate-400'
-                  }`}
-                >
-                  ● {of.estado}
-                </span>
-              </div>
-              <div className='space-y-2'>
-                <div className='flex justify-between text-[10px] font-black text-slate-400 uppercase italic'>
-                  <span>Progreso de Lote</span>
-                  <span>{of.progreso}%</span>
-                </div>
-                <div className='w-full bg-slate-100 h-3 rounded-full overflow-hidden'>
-                  <div
-                    className={`h-full transition-all duration-1000 ${
-                      of.progreso === 100 ? 'bg-emerald-500' : 'bg-indigo-600'
-                    }`}
-                    style={{ width: `${of.progreso}%` }}
-                  ></div>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Secuenciación y Prioridades */}
-        <div className='bg-white p-8 rounded-[2.5rem] border border-slate-100'>
-          <h3 className='font-black text-slate-800 uppercase text-xs tracking-widest mb-6'>
-            Prioridades de Secuenciación
-          </h3>
-          <div className='space-y-6'>
-            {[
-              {
-                color: 'bg-rose-500',
-                label: 'Urgente',
-                msg: 'Demanda disparada por IA'
-              },
-              {
-                color: 'bg-indigo-500',
-                label: 'Programado',
-                msg: 'Stock de seguridad bajo'
-              },
-              {
-                color: 'bg-slate-300',
-                label: 'Mantenimiento',
-                msg: 'Línea C - 14:00 PM'
-              }
-            ].map((prio, i) => (
-              <div key={i} className='flex gap-4 items-start'>
-                <div className={`w-1 h-10 rounded-full ${prio.color}`}></div>
-                <div>
-                  <p className='font-black text-xs uppercase tracking-tighter'>
-                    {prio.label}
-                  </p>
-                  <p className='text-[10px] text-slate-400 font-medium'>
-                    {prio.msg}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-          <button className='w-full mt-10 border-2 border-dashed border-slate-200 py-4 rounded-2xl text-[10px] font-black text-slate-400 hover:border-indigo-300 hover:text-indigo-400 transition-all'>
-            RE-SECUENCIAR PLANTA
-          </button>
         </div>
       </div>
     </div>
@@ -1343,138 +878,6 @@ export default function PharmaERP() {
       </div>
     </div>
   )
-  // --- COMPONENTE: PROTOCOLOS DE VALIDACIÓN FDA (Punto 12 + Consideraciones Críticas) ---
-  const SeccionValidacion = () => (
-    <div className='animate-in fade-in zoom-in duration-500 space-y-8'>
-      {/* Encabezado de Protocolo */}
-      <div className='bg-slate-900 text-white p-8 rounded-[2.5rem] shadow-2xl relative overflow-hidden'>
-        <div className='relative z-10'>
-          <h2 className='font-black text-indigo-400 text-xs tracking-[0.3em] uppercase mb-2'>
-            Protocolo de Calificación
-          </h2>
-          <h3 className='text-3xl font-black italic mb-4'>
-            SISTEMA PHARMA-OS v1.0
-          </h3>
-          <div className='flex flex-wrap gap-4 text-[10px] font-black uppercase'>
-            <span className='bg-white/10 px-3 py-1 rounded-full border border-white/20'>
-              FDA 21 CFR Part 11
-            </span>
-            <span className='bg-white/10 px-3 py-1 rounded-full border border-white/20'>
-              GAMP 5 Cat. 4
-            </span>
-            <span className='bg-emerald-500/20 text-emerald-400 px-3 py-1 rounded-full border border-emerald-500/30'>
-              Status: Validado
-            </span>
-          </div>
-        </div>
-        <div className='absolute right-[-20px] top-[-20px] text-[150px] font-black opacity-5 italic select-none'>
-          GMP
-        </div>
-      </div>
-
-      <div className='grid grid-cols-1 lg:grid-cols-3 gap-8'>
-        {/* FASE 1: IQ - Calificación de Instalación */}
-        <div className='bg-white rounded-[2.5rem] border border-slate-100 shadow-sm overflow-hidden flex flex-col'>
-          <div className='p-6 bg-slate-50 border-b border-slate-100'>
-            <p className='text-[10px] font-black text-indigo-600 uppercase tracking-widest'>
-              Fase 1
-            </p>
-            <h4 className='font-black text-slate-800 text-lg'>
-              IQ: Instalación
-            </h4>
-          </div>
-          <div className='p-6 space-y-4 flex-1'>
-            <div className='space-y-2'>
-              <p className='text-[10px] font-black text-slate-400 uppercase'>
-                Verificación de Documentación (IQ-001)
-              </p>
-              {[
-                { doc: 'Manual de Instalación', status: '✓' },
-                { doc: 'Certificados SSL/TLS', status: '✓' },
-                { doc: 'Matriz URS-FS', status: '✓' }
-              ].map((d, i) => (
-                <div
-                  key={i}
-                  className='flex justify-between p-3 bg-slate-50 rounded-xl text-[11px] font-bold'
-                >
-                  <span>{d.doc}</span>
-                  <span className='text-emerald-600'>{d.status}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-          <button className='m-6 mt-0 py-3 bg-slate-900 text-white rounded-2xl text-[10px] font-black uppercase tracking-widest'>
-            Ver Reporte IQ Completo
-          </button>
-        </div>
-
-        {/* FASE 2: OQ - Calificación Operacional */}
-        <div className='bg-white rounded-[2.5rem] border border-slate-100 shadow-sm overflow-hidden flex flex-col'>
-          <div className='p-6 bg-slate-50 border-b border-slate-100'>
-            <p className='text-[10px] font-black text-indigo-600 uppercase tracking-widest'>
-              Fase 2
-            </p>
-            <h4 className='font-black text-slate-800 text-lg'>
-              OQ: Operacional
-            </h4>
-          </div>
-          <div className='p-6 space-y-4 flex-1'>
-            <p className='text-[10px] font-black text-slate-400 uppercase'>
-              Casos de Prueba (OQ-001)
-            </p>
-            <div className='p-4 border-2 border-dashed border-slate-100 rounded-2xl space-y-3'>
-              <div className='flex justify-between items-center'>
-                <span className='text-[10px] font-black'>Audit Trail Test</span>
-                <span className='bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded text-[8px] font-black'>
-                  PASA
-                </span>
-              </div>
-              <div className='flex justify-between items-center'>
-                <span className='text-[10px] font-black'>Password Policy</span>
-                <span className='bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded text-[8px] font-black'>
-                  PASA
-                </span>
-              </div>
-            </div>
-          </div>
-          <button className='m-6 mt-0 py-3 bg-slate-100 text-slate-900 rounded-2xl text-[10px] font-black uppercase tracking-widest border border-slate-200'>
-            Ejecutar Stress Test
-          </button>
-        </div>
-
-        {/* FASE 3: PQ - Calificación de Desempeño */}
-        <div className='bg-indigo-600 rounded-[2.5rem] p-8 text-white shadow-xl flex flex-col'>
-          <p className='text-[10px] font-black text-indigo-200 uppercase tracking-widest'>
-            Fase 3
-          </p>
-          <h4 className='font-black text-white text-lg mb-6'>PQ: Desempeño</h4>
-          <div className='flex-1 space-y-4'>
-            <div className='bg-white/10 p-4 rounded-2xl'>
-              <p className='text-[9px] font-black uppercase opacity-60'>
-                Escenario End-to-End
-              </p>
-              <p className='text-[11px] font-bold mt-1'>
-                Producción Lote Ibuprofeno 400mg
-              </p>
-              <div className='w-full bg-white/20 h-1.5 mt-3 rounded-full overflow-hidden'>
-                <div
-                  className='bg-white h-full'
-                  style={{ width: '100%' }}
-                ></div>
-              </div>
-            </div>
-            <p className='text-[9px] italic opacity-80'>
-              * Verificación de trazabilidad completa hacia atrás y adelante
-              verificada.
-            </p>
-          </div>
-          <button className='mt-6 py-4 bg-white text-indigo-600 rounded-2xl text-[10px] font-black uppercase tracking-widest'>
-            Descargar COA & EBR
-          </button>
-        </div>
-      </div>
-    </div>
-  )
 
   const SeccionValidacionFDA = () => (
     <div className='animate-in fade-in zoom-in duration-500 space-y-8 pb-20'>
@@ -1734,14 +1137,14 @@ export default function PharmaERP() {
       <div className='md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-slate-100 z-50 shadow-[0_-10px_40px_rgba(0,0,0,0.08)]'>
         <div className='flex overflow-x-auto no-scrollbar items-center py-3 px-4 gap-6 focus:outline-none'>
           {[
-            { id: 'dashboard', icon: '📊', label: 'Home' },
-            { id: 'produccion', icon: '🧪', label: 'BOM' },
-            { id: 'contabilidad', icon: '📦', label: 'Stock' },
-            { id: 'regulatorio', icon: '⚙️', label: 'regulatorio' },
-            { id: 'soporte', icon: '⚙️', label: 'soporte' },
-            { id: 'ebr', icon: '📋', label: 'eBR' },
-            { id: 'qc', icon: '🔬', label: 'QC' },
-            { id: 'validacionFDA', icon: '⚖️', label: 'FDA' }
+            { id: 'dashboard', icon: '💎', label: 'Nexus Hub' },
+            { id: 'produccion', icon: '⚗️', label: 'Producción' },
+            { id: 'contabilidad', icon: '🚛', label: 'Materiales' },
+            { id: 'regulatorio', icon: '🛡️', label: 'Cumplimiento' },
+            { id: 'soporte', icon: '📊', label: 'Estrategia' },
+            { id: 'ebr', icon: '📑', label: 'eBR' },
+            { id: 'qc', icon: '🔬', label: 'QC Lab' },
+            { id: 'validacionFDA', icon: '✅', label: 'Validación' }
           ].map((item) => (
             <button
               key={item.id}
