@@ -5,7 +5,7 @@ interface CriticoProps {
 }
 
 const ConsideracionesCriticas: React.FC<CriticoProps> = ({ setTab }) => {
-  const [openSec, setOpenSec] = useState<string | null>('normativo')
+  const [openSec, setOpenSec] = useState<string | null>('marco')
 
   const toggle = (sec: string) => setOpenSec(openSec === sec ? null : sec)
 
@@ -211,7 +211,17 @@ const ConsideracionesCriticas: React.FC<CriticoProps> = ({ setTab }) => {
                     { l: 'OQ', d: 'Operación' },
                     { l: 'PQ', d: 'Desempeño' }
                   ].map((f, i) => (
-                    <div key={i} className='text-center group'>
+                    <div
+                      key={i}
+                      onClick={() => {
+                        if (f.l === 'IQ') setTab('fase-iq')
+                        if (f.l === 'OQ') setTab('fase-oq')
+                        if (f.l === 'PQ') setTab('fase-pq')
+                      }}
+                      className={`text-center group ${
+                        f.l === 'IQ' ? 'cursor-pointer' : 'cursor-default'
+                      }`}
+                    >
                       <div className='w-12 h-12 rounded-full bg-slate-900 text-white flex items-center justify-center font-black text-xs mb-2 group-hover:bg-indigo-600 transition-colors'>
                         {f.l}
                       </div>

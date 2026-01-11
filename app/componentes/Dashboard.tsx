@@ -6,54 +6,6 @@ const Dashboard: React.FC<DashboardProps> = ({ setTab }) => {
   return (
     <div className='animate-in fade-in zoom-in duration-500 space-y-6 sm:space-y-8 pb-10'>
       {/* 18. Business Intelligence (KPIs Globales) - Grid optimizado: 2 col en móvil, 4 en PC */}
-      <div className='grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4'>
-        {[
-          {
-            id: 'control_prod',
-            label: 'OEE Global',
-            val: '88.2%',
-            desc: 'Rendimiento Planta',
-            color: 'text-indigo-600'
-          },
-          {
-            id: 'qc',
-            label: 'Alertas Calidad',
-            val: '02',
-            desc: 'Pendientes QA',
-            color: 'text-rose-600'
-          },
-          {
-            id: 'qa',
-            label: 'Cumplimiento',
-            val: '100%',
-            desc: 'ALCOA+ Status',
-            color: 'text-emerald-600'
-          },
-          {
-            id: 'validacionFDA',
-            label: 'Audit Trail',
-            val: 'Activo',
-            desc: 'Inmutable (21 CFR)',
-            color: 'text-slate-900'
-          }
-        ].map((kpi, i) => (
-          <button
-            key={i}
-            onClick={() => setTab(kpi.id)}
-            className='bg-white p-4 sm:p-5 rounded-[1.5rem] sm:rounded-[2rem] border border-slate-100 shadow-sm text-left hover:border-indigo-300 transition-all active:scale-95'
-          >
-            <p className='text-slate-400 text-[8px] sm:text-[9px] font-black uppercase tracking-tighter sm:tracking-widest'>
-              {kpi.label}
-            </p>
-            <p className={`text-xl sm:text-2xl font-black mt-1 ${kpi.color}`}>
-              {kpi.val}
-            </p>
-            <p className='text-[9px] sm:text-[10px] text-slate-400 font-bold leading-tight'>
-              {kpi.desc}
-            </p>
-          </button>
-        ))}
-      </div>
 
       {/* SECCIÓN MÓDULOS CORE - Ajuste de gap para móvil */}
       <div className='grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8'>
@@ -401,6 +353,54 @@ const Dashboard: React.FC<DashboardProps> = ({ setTab }) => {
             </p>
           </div>
         </div>
+      </div>
+      <div className='grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4'>
+        {[
+          {
+            id: 'control_prod',
+            label: 'OEE Global',
+            val: '88.2%',
+            desc: 'Rendimiento Planta',
+            color: 'text-indigo-600'
+          },
+          {
+            id: 'qc',
+            label: 'Alertas Calidad',
+            val: '02',
+            desc: 'Pendientes QA',
+            color: 'text-rose-600'
+          },
+          {
+            id: 'qa',
+            label: 'Cumplimiento',
+            val: '100%',
+            desc: 'ALCOA+ Status',
+            color: 'text-emerald-600'
+          },
+          {
+            id: 'validacionFDA',
+            label: 'Audit Trail',
+            val: 'Activo',
+            desc: 'Inmutable (21 CFR)',
+            color: 'text-slate-900'
+          }
+        ].map((kpi, i) => (
+          <button
+            key={i}
+            onClick={() => setTab(kpi.id)}
+            className='bg-white p-4 sm:p-5 rounded-[1.5rem] sm:rounded-[2rem] border border-slate-100 shadow-sm text-left hover:border-indigo-300 transition-all active:scale-95'
+          >
+            <p className='text-slate-400 text-[8px] sm:text-[9px] font-black uppercase tracking-tighter sm:tracking-widest'>
+              {kpi.label}
+            </p>
+            <p className={`text-xl sm:text-2xl font-black mt-1 ${kpi.color}`}>
+              {kpi.val}
+            </p>
+            <p className='text-[9px] sm:text-[10px] text-slate-400 font-bold leading-tight'>
+              {kpi.desc}
+            </p>
+          </button>
+        ))}
       </div>
     </div>
   )
