@@ -589,8 +589,20 @@ export default function PharmaERP() {
   )
   // --- NUEVO COMPONENTE: GESTIÓN DE FÓRMULAS MAESTRAS ---
   const ProduccionYCalidad = () => {
-    // Estado para controlar si mostramos la lista de fórmulas o el menú de opciones del BOM
+    // Estados para controlar los menús de cada módulo
     const [showBOMOptions, setShowBOMOptions] = React.useState(false)
+    const [showMESOptions, setShowMESOptions] = React.useState(false)
+    const [showEBROptions, setShowEBROptions] = React.useState(false)
+    const [showQCOptions, setShowQCOptions] = React.useState(false)
+    const [showQAOptions, setShowQAOptions] = React.useState(false)
+
+    const resetViews = () => {
+      setShowBOMOptions(false)
+      setShowMESOptions(false)
+      setShowEBROptions(false)
+      setShowQCOptions(false)
+      setShowQAOptions(false)
+    }
 
     return (
       <div className='animate-in fade-in zoom-in duration-500 space-y-8 pb-10'>
@@ -606,14 +618,10 @@ export default function PharmaERP() {
           </div>
           <div className='flex gap-2'>
             <button
-              onClick={() => setShowBOMOptions(false)}
-              className={`px-4 py-3 rounded-2xl font-black text-[10px] uppercase transition-all ${
-                !showBOMOptions
-                  ? 'bg-indigo-50 text-indigo-600'
-                  : 'bg-slate-50 text-slate-400'
-              }`}
+              onClick={resetViews}
+              className='px-4 py-3 rounded-2xl font-black text-[10px] uppercase bg-slate-50 text-slate-400 hover:text-indigo-600 transition-all'
             >
-              Vista General
+              Resetear Vistas
             </button>
             <button
               onClick={() => setTab('dashboard')}
@@ -624,13 +632,13 @@ export default function PharmaERP() {
           </div>
         </div>
 
-        {/* SECCIÓN 1 Y 2: BOM Y MES */}
+        {/* FILA SUPERIOR: 1. BOM y 2. MES */}
         <div className='grid grid-cols-1 lg:grid-cols-2 gap-8'>
-          {/* 1. Gestión de Fórmulas Maestras (BOM) */}
+          {/* 1. BOM */}
           <div
-            className={`bg-white p-8 rounded-[2.5rem] border transition-all duration-500 min-h-[350px] flex flex-col ${
+            className={`bg-white p-8 rounded-[2.5rem] border transition-all duration-500 min-h-[420px] flex flex-col ${
               showBOMOptions
-                ? 'border-indigo-500 shadow-indigo-100 shadow-2xl'
+                ? 'border-indigo-500 shadow-2xl'
                 : 'border-slate-100 shadow-sm'
             }`}
           >
@@ -638,223 +646,318 @@ export default function PharmaERP() {
               <h4 className='font-black text-slate-800 text-[10px] uppercase tracking-widest'>
                 1. Master Formula / BOM
               </h4>
-              {!showBOMOptions ? (
-                <button
-                  onClick={() => setShowBOMOptions(true)}
-                  className='text-[9px] font-black bg-indigo-600 text-white px-3 py-1 rounded-lg hover:bg-indigo-700 transition-all'
-                >
-                  CONFIGURAR BOM
-                </button>
-              ) : (
-                <button
-                  onClick={() => setShowBOMOptions(false)}
-                  className='text-[9px] font-black text-slate-400 hover:text-rose-500'
-                >
-                  CERRAR ✕
-                </button>
-              )}
+              <button
+                onClick={() => setShowBOMOptions(!showBOMOptions)}
+                className='text-[9px] font-black uppercase text-indigo-600'
+              >
+                {showBOMOptions ? 'Cerrar ✕' : 'Configurar'}
+              </button>
             </div>
-
             {!showBOMOptions ? (
-              <div className='space-y-4 animate-in fade-in slide-in-from-bottom-2'>
+              <div
+                className='space-y-4 animate-in fade-in'
+                onClick={() => setShowBOMOptions(true)}
+              >
                 {[
                   { n: 'Jarabe Forte', v: 'v3.1', d: '± 0.5%' },
                   { n: 'Cápsulas Magnesio', v: 'v1.0', d: '± 1.0%' }
                 ].map((f, i) => (
                   <div
                     key={i}
-                    className='p-4 bg-slate-50 rounded-2xl flex justify-between items-center border border-transparent hover:border-indigo-100 transition-all cursor-pointer'
-                    onClick={() => setShowBOMOptions(true)}
+                    className='p-4 bg-slate-50 rounded-2xl flex justify-between items-center cursor-pointer hover:bg-slate-100 transition-colors'
                   >
-                    <div>
-                      <p className='text-xs font-black text-slate-800'>{f.n}</p>
-                      <p className='text-[9px] text-slate-400 font-bold uppercase'>
-                        Versión {f.v}
-                      </p>
-                    </div>
-                    <div className='text-indigo-600 text-xs font-black'>
+                    <p className='text-xs font-black text-slate-800'>{f.n}</p>
+                    <span className='text-indigo-600 text-[10px] font-black'>
                       {f.d}
-                    </div>
+                    </span>
                   </div>
                 ))}
-                <p className='text-[8px] text-center text-slate-400 font-bold italic mt-2'>
-                  Click para desplegar opciones de control
-                </p>
+                <div className='mt-10 p-4 border-2 border-dashed border-slate-100 rounded-2xl text-center text-[8px] font-black text-slate-400 uppercase'>
+                  Gestionar Fórmulas
+                </div>
               </div>
             ) : (
-              <div className='space-y-3 animate-in zoom-in-95 duration-300'>
+              <div className='grid grid-cols-1 gap-2 animate-in zoom-in-95'>
                 {[
-                  {
-                    title: 'Fórmulas estándar y desviaciones permitidas',
-                    icon: '📏',
-                    color: 'bg-blue-50 text-blue-600'
-                  },
-                  {
-                    title: 'Control de versiones de fórmulas',
-                    icon: '📑',
-                    color: 'bg-indigo-50 text-indigo-600'
-                  },
-                  {
-                    title: 'Escalamiento de lotes (piloto a producción)',
-                    icon: '📈',
-                    color: 'bg-emerald-50 text-emerald-600'
-                  },
-                  {
-                    title: 'Cálculo automático de materiales',
-                    icon: '🧮',
-                    color: 'bg-amber-50 text-amber-600'
-                  }
-                ].map((opcion, i) => (
+                  'Fórmulas estándar y desviaciones permitidas',
+                  'Control de versiones de fórmulas',
+                  'Escalamiento de lotes (piloto a producción)',
+                  'Cálculo automático de materiales'
+                ].map((t, i) => (
                   <button
                     key={i}
-                    className='w-full flex items-center gap-4 p-4 rounded-2xl border border-slate-50 hover:border-indigo-200 hover:bg-indigo-50/30 transition-all group text-left'
+                    className='p-4 rounded-2xl bg-slate-50 hover:bg-indigo-600 group transition-all text-left'
                   >
-                    <div
-                      className={`w-10 h-10 ${opcion.color} rounded-xl flex items-center justify-center text-lg`}
-                    >
-                      {opcion.icon}
-                    </div>
-                    <div className='flex-1'>
-                      <p className='text-[10px] font-black text-slate-800 uppercase leading-tight'>
-                        {opcion.title}
-                      </p>
-                      <p className='text-[8px] text-slate-400 font-bold uppercase mt-0.5 group-hover:text-indigo-500'>
-                        Ejecutar Módulo →
-                      </p>
-                    </div>
+                    <p className='text-[9px] font-black text-slate-700 group-hover:text-white uppercase'>
+                      {t}
+                    </p>
                   </button>
                 ))}
               </div>
             )}
           </div>
 
-          {/* 2. MES - Planificación y Control */}
+          {/* 2. MES */}
           <div
-            onClick={() => setTab('control_prod')}
-            className='bg-slate-900 p-8 rounded-[2.5rem] text-white space-y-6 cursor-pointer hover:ring-4 ring-indigo-500/20 transition-all group min-h-[350px]'
+            className={`p-8 rounded-[2.5rem] transition-all duration-500 min-h-[420px] flex flex-col ${
+              showMESOptions
+                ? 'bg-indigo-900 shadow-2xl'
+                : 'bg-slate-900 shadow-sm'
+            }`}
           >
-            <div className='flex justify-between items-center'>
+            <div className='flex justify-between items-center border-b border-white/10 pb-4 mb-6'>
               <h4 className='font-black text-indigo-400 text-[10px] uppercase tracking-widest'>
-                2. MES - Control de Producción
+                2. MES - Producción
               </h4>
-              <span className='text-lg'>⚙️</span>
+              <button
+                onClick={() => setShowMESOptions(!showMESOptions)}
+                className='text-[9px] font-black uppercase text-white/50 hover:text-white'
+              >
+                {showMESOptions ? 'Cerrar ✕' : 'Gestionar'}
+              </button>
             </div>
-            <div className='grid grid-cols-2 gap-4'>
-              <div className='bg-white/5 p-4 rounded-2xl border border-white/10'>
-                <p className='text-[8px] font-black text-slate-400 uppercase'>
-                  OEE Línea A
+            {!showMESOptions ? (
+              <div
+                className='space-y-6 animate-in fade-in'
+                onClick={() => setShowMESOptions(true)}
+              >
+                <div className='grid grid-cols-2 gap-4'>
+                  <div className='bg-white/5 p-4 rounded-2xl border border-white/10'>
+                    <p className='text-[8px] font-black text-slate-400 uppercase'>
+                      OEE Global
+                    </p>
+                    <p className='text-xl font-black text-emerald-400'>92.4%</p>
+                  </div>
+                  <div className='bg-white/5 p-4 rounded-2xl border border-white/10'>
+                    <p className='text-[8px] font-black text-slate-400 uppercase'>
+                      Estado
+                    </p>
+                    <p className='text-xl font-black text-white'>Running</p>
+                  </div>
+                </div>
+                <p className='text-[8px] text-center text-white/30 font-bold uppercase tracking-widest mt-12 font-mono'>
+                  Consola de Planta Activa
                 </p>
-                <p className='text-xl font-black text-emerald-400'>92.4%</p>
               </div>
-              <div className='bg-white/5 p-4 rounded-2xl border border-white/10'>
-                <p className='text-[8px] font-black text-slate-400 uppercase'>
-                  Estado
-                </p>
-                <p className='text-xl font-black text-white'>En Línea</p>
+            ) : (
+              <div className='grid grid-cols-1 gap-2 animate-in zoom-in-95'>
+                {[
+                  'Órdenes de fabricación',
+                  'Programación de lotes por línea/equipo',
+                  'Secuenciación y priorización',
+                  'Control de tiempos de producción',
+                  'Rendimientos y eficiencias (OEE)'
+                ].map((t, i) => (
+                  <button
+                    key={i}
+                    className='p-4 rounded-2xl bg-white/5 hover:bg-white text-white hover:text-indigo-900 group transition-all text-left'
+                  >
+                    <p className='text-[9px] font-black uppercase'>{t}</p>
+                  </button>
+                ))}
               </div>
-            </div>
-            <div className='p-6 bg-white/5 rounded-3xl border border-white/5 space-y-4'>
-              <p className='text-[10px] font-bold text-indigo-300 uppercase'>
-                Cola de Producción
-              </p>
-              <div className='flex justify-between items-center text-[10px] border-b border-white/10 pb-2'>
-                <span>Lote #9921 - Ibuprofeno</span>
-                <span className='text-emerald-400 font-black'>65%</span>
-              </div>
-            </div>
-            <p className='text-[9px] text-center font-black text-indigo-400 uppercase tracking-widest group-hover:translate-x-1 transition-transform'>
-              Ver Panel Operativo MES →
-            </p>
+            )}
           </div>
         </div>
 
-        {/* SECCIÓN 3, 4 Y 5: EBR, QC Y QA (RESTAURADOS) */}
+        {/* FILA INFERIOR: 3. EBR, 4. QC y 5. QA */}
         <div className='grid grid-cols-1 lg:grid-cols-3 gap-8'>
-          {/* 3. EBR - Registro Electrónico */}
+          {/* 3. EBR */}
           <div
-            onClick={() => setTab('ebr')}
-            className='bg-white p-6 rounded-[2.5rem] border border-slate-100 shadow-sm cursor-pointer hover:shadow-md transition-all group'
+            className={`p-6 rounded-[2.5rem] border transition-all duration-500 min-h-[380px] flex flex-col ${
+              showEBROptions
+                ? 'bg-emerald-600 border-emerald-500 shadow-xl'
+                : 'bg-white border-slate-100 shadow-sm'
+            }`}
           >
-            <div className='flex justify-between items-center mb-6'>
-              <h4 className='font-black text-slate-800 text-[10px] uppercase tracking-widest'>
-                3. EBR (Electronic Batch Record)
+            <div
+              className={`flex justify-between items-center border-b pb-4 mb-4 ${
+                showEBROptions ? 'border-white/20' : 'border-slate-50'
+              }`}
+            >
+              <h4
+                className={`font-black text-[10px] uppercase tracking-widest ${
+                  showEBROptions ? 'text-white' : 'text-slate-800'
+                }`}
+              >
+                3. EBR - Registro
               </h4>
-              <span className='text-lg group-hover:scale-125 transition-transform'>
-                📋
-              </span>
+              <button
+                onClick={() => setShowEBROptions(!showEBROptions)}
+                className={`text-[9px] font-black uppercase ${
+                  showEBROptions ? 'text-white' : 'text-emerald-600'
+                }`}
+              >
+                {showEBROptions ? '✕' : 'Ver Detalles'}
+              </button>
             </div>
-            <div className='space-y-4 font-mono text-[9px]'>
-              <div className='p-3 bg-emerald-50 border border-emerald-100 rounded-xl text-emerald-800'>
-                <p className='font-black italic'>LOTE #L-9921 INICIADO</p>
-                <p className='text-[7px]'>Firma: USR_PROD_10-JAN</p>
+            {!showEBROptions ? (
+              <div
+                className='space-y-4 animate-in fade-in cursor-pointer'
+                onClick={() => setShowEBROptions(true)}
+              >
+                <div className='p-3 bg-emerald-50 border border-emerald-100 rounded-xl text-emerald-800 text-[9px] font-mono'>
+                  <p className='font-black italic'>LOTE #L-9921 INICIADO</p>
+                </div>
+                <p className='text-[8px] text-center text-slate-400 font-bold uppercase mt-12'>
+                  Log de Eventos GMP
+                </p>
               </div>
-              <div className='p-3 bg-slate-50 border border-slate-100 rounded-xl text-slate-500'>
-                <p className='font-black uppercase'>Checklist Pesaje OK</p>
-              </div>
-            </div>
-          </div>
-
-          {/* 4. QC - Control de Calidad */}
-          <div
-            onClick={() => setTab('qc')}
-            className='bg-white p-6 rounded-[2.5rem] border border-slate-100 shadow-sm cursor-pointer hover:shadow-md transition-all group'
-          >
-            <div className='flex justify-between items-center mb-6'>
-              <h4 className='font-black text-slate-800 text-[10px] uppercase tracking-widest'>
-                4. Control de Calidad (QC)
-              </h4>
-              <span className='text-lg group-hover:rotate-12 transition-transform'>
-                🔬
-              </span>
-            </div>
-            <div className='space-y-3'>
-              {['HPLC: Identidad', 'Disolución Lote #22', 'Microbiología'].map(
-                (test, i) => (
-                  <div
+            ) : (
+              <div className='grid grid-cols-1 gap-1.5 animate-in slide-in-from-right-2'>
+                {[
+                  'Instrucciones paso a paso',
+                  'Registro de parámetros críticos',
+                  'Firma electrónica multinivel',
+                  'Conciliación de materiales',
+                  'Desviaciones y acciones correctivas',
+                  'Trazabilidad completa 21 CFR'
+                ].map((t, i) => (
+                  <button
                     key={i}
-                    className='flex justify-between items-center p-2 border-b border-slate-50'
+                    className='p-2.5 rounded-xl bg-white/10 hover:bg-white text-white hover:text-emerald-700 transition-all text-left text-[8px] font-black uppercase'
                   >
-                    <span className='text-[10px] font-bold text-slate-600'>
-                      {test}
-                    </span>
-                    <span className='w-2 h-2 bg-emerald-500 rounded-full'></span>
-                  </div>
-                )
-              )}
-              <p className='text-[8px] text-center font-black text-indigo-600 mt-4 uppercase'>
-                Gestión de LIMS →
-              </p>
-            </div>
+                    {t}
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
 
-          {/* 5. QA - Aseguramiento de Calidad */}
+          {/* 4. QC */}
           <div
-            onClick={() => setTab('qa')}
-            className='bg-indigo-50 p-6 rounded-[2.5rem] border border-indigo-100 shadow-sm cursor-pointer hover:bg-indigo-100 transition-all group'
+            className={`p-6 rounded-[2.5rem] border transition-all duration-500 min-h-[380px] flex flex-col ${
+              showQCOptions
+                ? 'bg-cyan-600 border-cyan-500 shadow-xl'
+                : 'bg-white border-slate-100 shadow-sm'
+            }`}
           >
-            <div className='flex justify-between items-center mb-6'>
-              <h4 className='font-black text-indigo-900 text-[10px] uppercase tracking-widest'>
+            <div
+              className={`flex justify-between items-center border-b pb-4 mb-4 ${
+                showQCOptions ? 'border-white/20' : 'border-slate-50'
+              }`}
+            >
+              <h4
+                className={`font-black text-[10px] uppercase tracking-widest ${
+                  showQCOptions ? 'text-white' : 'text-slate-800'
+                }`}
+              >
+                4. Control Calidad
+              </h4>
+              <button
+                onClick={() => setShowQCOptions(!showQCOptions)}
+                className={`text-[9px] font-black uppercase ${
+                  showQCOptions ? 'text-white' : 'text-cyan-600'
+                }`}
+              >
+                {showQCOptions ? '✕' : 'Analítica'}
+              </button>
+            </div>
+            {!showQCOptions ? (
+              <div
+                className='space-y-4 animate-in fade-in cursor-pointer'
+                onClick={() => setShowQCOptions(true)}
+              >
+                <div className='p-3 bg-cyan-50 border border-cyan-100 rounded-xl text-cyan-800 text-[9px] font-black uppercase tracking-tighter'>
+                  Laboratorio Central
+                </div>
+                <p className='text-[8px] text-center text-slate-400 font-bold uppercase mt-12'>
+                  Gestión de Muestreo
+                </p>
+              </div>
+            ) : (
+              <div className='grid grid-cols-1 gap-1.5 animate-in slide-in-from-left-2'>
+                {[
+                  'Especificaciones por producto/MP',
+                  'Programación de análisis',
+                  'Registro de resultados lab',
+                  'Certificados de análisis (COA)',
+                  'Gestión de muestras de retención',
+                  'Estudios de estabilidad'
+                ].map((t, i) => (
+                  <button
+                    key={i}
+                    className='p-2.5 rounded-xl bg-white/10 hover:bg-white text-white hover:text-cyan-800 transition-all text-left text-[8px] font-black uppercase'
+                  >
+                    {t}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* 5. QA (Aseguramiento de Calidad) - NUEVO MENÚ INTERACTIVO */}
+          <div
+            className={`p-6 rounded-[2.5rem] border transition-all duration-500 min-h-[380px] flex flex-col ${
+              showQAOptions
+                ? 'bg-indigo-600 border-indigo-500 shadow-xl'
+                : 'bg-white border-slate-100 shadow-sm'
+            }`}
+          >
+            <div
+              className={`flex justify-between items-center border-b pb-4 mb-4 ${
+                showQAOptions ? 'border-white/20' : 'border-slate-50'
+              }`}
+            >
+              <h4
+                className={`font-black text-[10px] uppercase tracking-widest ${
+                  showQAOptions ? 'text-white' : 'text-slate-800'
+                }`}
+              >
                 5. Aseguramiento (QA)
               </h4>
-              <span className='text-lg group-hover:scale-110 transition-transform'>
-                🛡️
-              </span>
+              <button
+                onClick={() => setShowQAOptions(!showQAOptions)}
+                className={`text-[9px] font-black uppercase ${
+                  showQAOptions ? 'text-white' : 'text-indigo-600'
+                }`}
+              >
+                {showQAOptions ? '✕' : 'Garantía'}
+              </button>
             </div>
-            <div className='bg-white p-4 rounded-2xl shadow-sm mb-4 border border-indigo-100/50'>
-              <p className='text-[8px] font-black text-indigo-600 uppercase mb-2'>
-                Liberación de Lote
-              </p>
-              <div className='w-full bg-slate-100 h-1.5 rounded-full overflow-hidden'>
-                <div className='bg-indigo-600 h-full w-[75%]'></div>
+
+            {!showQAOptions ? (
+              <div
+                className='space-y-4 animate-in fade-in cursor-pointer flex-1 flex flex-col justify-between'
+                onClick={() => setShowQAOptions(true)}
+              >
+                <div className='p-4 bg-indigo-50 border border-indigo-100 rounded-2xl'>
+                  <div className='flex justify-between items-center mb-2'>
+                    <span className='text-[8px] font-black text-indigo-600 uppercase tracking-widest'>
+                      Liberación
+                    </span>
+                    <span className='text-[10px] font-black text-indigo-900'>
+                      75%
+                    </span>
+                  </div>
+                  <div className='w-full bg-slate-200 h-1.5 rounded-full overflow-hidden'>
+                    <div className='bg-indigo-600 h-full w-[75%]'></div>
+                  </div>
+                </div>
+                <p className='text-[8px] text-center text-slate-400 font-bold uppercase mb-2'>
+                  Auditoría y Cumplimiento
+                </p>
               </div>
-              <p className='text-[7px] text-slate-400 font-black mt-2 uppercase'>
-                ALCOA+ Status: Verified
-              </p>
-            </div>
-            <div className='flex justify-between text-[7px] font-black uppercase text-indigo-600 bg-white/50 p-2 rounded-lg'>
-              <span>CAPAs: 12</span>
-              <span>Desviaciones: 0</span>
-            </div>
+            ) : (
+              <div className='grid grid-cols-1 gap-1.5 animate-in slide-in-from-bottom-2'>
+                {[
+                  'Liberación de lotes',
+                  'Revisión de documentación de lote',
+                  'Gestión de quejas y reclamos',
+                  'Gestión de devoluciones',
+                  'Gestión de cambios (Change Control)',
+                  'CAPA (Acciones Correctivas)',
+                  'Auditorías internas'
+                ].map((t, i) => (
+                  <button
+                    key={i}
+                    className='p-2.5 rounded-xl bg-white/10 hover:bg-white text-white hover:text-indigo-900 transition-all text-left text-[8px] font-black uppercase'
+                  >
+                    {t}
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </div>
