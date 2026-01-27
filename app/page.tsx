@@ -15,7 +15,7 @@ export default function PharmaERP() {
   const [tab, setTab] = useState('dashboard')
 
   return (
-    <div></div>
+    <div>Loading ...</div>
     // <div className='min-h-screen bg-[#F8FAFC] text-slate-900 pb-24 md:pb-10 font-sans'>
     //   {/* --- NAVBAR DESKTOP --- */}
     //   <nav className='bg-white border-b border-slate-100 px-6 py-4 sticky top-0 z-50'>
